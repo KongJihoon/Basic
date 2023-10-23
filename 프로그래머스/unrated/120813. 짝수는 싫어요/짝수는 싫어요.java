@@ -1,23 +1,19 @@
-import java.util.Arrays;
-
+import java.util.ArrayList;
 class Solution {
     public int[] solution(int n) {
-        int[] answer;
-        if(n % 2 == 0) {
-            answer = new int[n/2];
-        }else{
-            answer = new int[(n/2)+1] ;
-        }
-        int num = 0;
-
+        int[] answer = {};
+        ArrayList<Integer> list = new ArrayList<>();
         for (int i = 1; i <= n; i++) {
             if(i % 2 != 0){
-                answer[num] = i;
-                num++;
+                list.add(i);
             }
-
         }
-        Arrays.sort(answer);
+        answer = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            answer[i] = list.get(i);
+        }
+
+
         return answer;
     }
 }
