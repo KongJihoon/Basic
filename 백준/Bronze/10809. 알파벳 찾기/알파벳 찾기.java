@@ -1,34 +1,33 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.Stack;
 import java.util.StringTokenizer;
-import java.util.stream.IntStream;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         String s = br.readLine();
-        char[] c = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r',
-        's','t','u','v','w','x','y','z'};
-        int[] n = new int[c.length];
-        Arrays.fill(n, -1);
+        StringBuilder sb = new StringBuilder();
+        int[] alphabet = new int[26];
+        for (int i = 0; i < alphabet.length; i++) {
+            alphabet[i] = -1;
+        }
+
         for (int i = 0; i < s.length(); i++) {
-            for (int j = 0; j < c.length; j++) {
-                if(c[j] == s.charAt(i)){
-                    if(n[j] != -1){
-                        continue;
-                    }
-                    n[j] = i;
-                }
+            char c = s.charAt(i);
+            if(alphabet[c - 'a'] != -1){
+                continue;
             }
+            alphabet[c - 'a'] = i;
         }
-        for (int i = 0; i < n.length; i++) {
-            System.out.print(n[i] + " ");
+
+        for (int i = 0; i < alphabet.length; i++) {
+            sb.append(alphabet[i]).append(" ");
         }
-        System.out.println();
-
-
+        System.out.println(sb);
 
     }
 }
