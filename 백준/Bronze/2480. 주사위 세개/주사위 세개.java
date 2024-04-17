@@ -1,35 +1,32 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
-class Main {
+public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        int A = Integer.parseInt(st.nextToken());
-        int B = Integer.parseInt(st.nextToken());
-        int C = Integer.parseInt(st.nextToken());
-        int reseult = 0;
-        if(A == B && B == C){
-            reseult = 10000 + A * 1000;
-            System.out.println(reseult);
-        } else if (A == B && A != C || A == C && A != B) {
-            reseult = 1000 + A * 100;
-            System.out.println(reseult);
-        } else if (B == C && B != A) {
-            reseult = 1000 + B * 100;
-            System.out.println(reseult);
-        }else {
-            int max = A;
-            if(max < B) max = B;
-            if(max < C) max = C;
-            System.out.println(max * 100);
-            
+
+        int a = Integer.parseInt(st.nextToken());
+        int b = Integer.parseInt(st.nextToken());
+        int c = Integer.parseInt(st.nextToken());
+
+        int sum = 0;
+
+        if (a == b && b == c) {
+            sum = 10000 + (a * 1000);
+        } else if (a == b || a == c) {
+            sum = 1000 + (a * 100);
+        } else if (b == c) {
+            sum = 1000 + (b * 100); 
+        } else {
+            sum = Math.max(a, Math.max(b, c)) * 100;
         }
 
+        System.out.println(sum);
 
     }
+
 }
