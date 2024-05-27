@@ -1,20 +1,31 @@
-import java.io.*;
-import java.util.Arrays;
-import java.util.StringTokenizer;
-import java.util.stream.IntStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String s = br.readLine();
-        int answer = 1;
+    public static int pelindrom(String s) {
+
         for (int i = 0; i < s.length() / 2; i++) {
-            if(s.charAt(i) != s.charAt(s.length() - 1 - i)){
-                answer = 0;
+
+            if (s.charAt(i) != s.charAt(s.length() - 1 - i)) {
+                return 0;
             }
+
         }
-        System.out.println(answer);
+        return 1;
+    }
+
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        String s = br.readLine();
+
+
+        System.out.println(pelindrom(s));
+
 
     }
+
 }
