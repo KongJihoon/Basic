@@ -1,33 +1,51 @@
-import java.io.*;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
+
         Scanner sc = new Scanner(System.in);
-        String[] score = {"A+","A0","B+","B0","C+","C0","D+","D0","F"};
-        double[] scoreNum = {4.5, 4.0, 3.5, 3.0, 2.5, 2.0, 1.5, 1.0, 0.0};
-        double sumA = 0;
-        double sumB = 0;
-        StringTokenizer st;
+
+
+        double totalSum = 0;
+        double scoreSum = 0;
+        String[] gradeList = {"A+", "A0", "B+", "B0", "C+", "C0", "D+", "D0", "F", "P"};
+        double[] gradeScore = {4.5, 4.0, 3.5, 3.0, 2.5, 2.0, 1.5, 1.0, 0.0, 0.0};
+
         for (int i = 0; i < 20; i++) {
-            st = new StringTokenizer(sc.nextLine());
-            String s = st.nextToken();
-            double num = Double.parseDouble(st.nextToken());
-            String grade = st.nextToken();
-            for (int j = 0; j < score.length; j++) {
-                if(grade.equals(score[j])){
-                    sumA += (num * scoreNum[j]);
+
+            String subject = sc.next();
+            double score = sc.nextDouble();
+            String grade = sc.next();
+
+            for (int j = 0; j < 10; j++) {
+                if(grade.equals(gradeList[j])) {
+                    totalSum += score * gradeScore[j];
+                    if(j != 9) {
+                        scoreSum += score;
+                    }
                 }
+
             }
-            if(grade.equals("P")){
-                continue;
-            }
-            sumB += num;
+
+
         }
-        System.out.println(sumA / sumB);
+
+
+        double average = totalSum / scoreSum;
+
+        System.out.printf("%.6f",average);
+
+
     }
+
+
+
+
 }
