@@ -1,24 +1,38 @@
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-import java.util.stream.IntStream;
 
 public class Main {
 
+
+
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+
         int x = Integer.parseInt(st.nextToken());
         int y = Integer.parseInt(st.nextToken());
         int w = Integer.parseInt(st.nextToken());
         int h = Integer.parseInt(st.nextToken());
 
-        int distanceA = Math.min(x, Math.abs(x - w));
-        int distanceB = Math.min(y, Math.abs(y - h));
 
-        System.out.println(Math.min(distanceA,distanceB));
+        int resultA = Math.min((w - x), (h - y));
+        int resultB = Math.min(resultA, x);
+        int result = Math.min(resultB, y);
+
+        System.out.println(result);
+
+
 
     }
+
+
+
+
+
+
+
 }
