@@ -1,39 +1,39 @@
-import java.io.*;
-import java.util.*;
-import java.util.stream.IntStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+
+
 
 public class Main {
 
-    public static int[] stack;
-    public static int size = 0;
+
+
 
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
-        ArrayList<String> list = new ArrayList<>();
 
-        int N = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine());
 
-        for (int i = 0; i < N; i++) {
-            String str = br.readLine();
-            for (String tmp : str.split(" ")){
-                sb.append(reverse(tmp)).append(" ");
+        while (n-- > 0) {
+
+            String[] s = br.readLine().split(" ");
+
+            for (String str: s) {
+
+                StringBuilder sb = new StringBuilder(str);
+
+                System.out.print(sb.reverse() + " ");
             }
-            sb.append("\n");
+            System.out.println();
 
         }
-        System.out.println(sb);
-    }
-
-    public static String reverse(String item){
-        if(item.length() == 0){
-            return null;
-        }
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(item).reverse();
-        return sb.toString();
 
     }
+
 
 }
+
+
