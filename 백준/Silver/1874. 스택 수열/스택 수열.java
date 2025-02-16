@@ -1,14 +1,11 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
-
-
-
 public class Main {
-
 
 
 
@@ -18,37 +15,56 @@ public class Main {
 
         int n = Integer.parseInt(br.readLine());
 
-        StringBuilder sb = new StringBuilder();
-        Stack<Integer> stack = new Stack();
+        Stack stack = new Stack();
 
         int start = 0;
 
+        StringBuilder sb = new StringBuilder();
+
         while (n-- > 0) {
 
-            int value = Integer.parseInt(br.readLine());
+            int num = Integer.parseInt(br.readLine());
 
-            if (start < value) {
 
-                for (int i = start + 1; i <= value; i++) {
+            if (num > start) {
+
+                for (int i = start + 1; i <= num; i++) {
+
+
                     stack.push(i);
                     sb.append("+").append("\n");
                 }
+                start = num;
 
-                start = value;
-            } else if (stack.peek() != value) {
-                System.out.println("NO");
-                return;
             }
 
-            stack.pop();
-            sb.append("-").append("\n");
+            if (stack.peek().equals(num)) {
+                stack.pop();
+                sb.append("-").append("\n");
+            } else {
+                break;
+            }
+
+
         }
 
-        System.out.println(sb);
+        if (stack.isEmpty()) {
+            System.out.println(sb);
+        } else {
+            System.out.println("NO");
+        }
+
+
+
+
+
+
 
     }
 
-
 }
+
+
+
 
 
