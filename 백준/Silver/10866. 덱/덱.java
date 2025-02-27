@@ -1,56 +1,152 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class Main {
+
+
+
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Deque<Integer> deque = new ArrayDeque<>();
-        StringBuilder sb = new StringBuilder();
+
         int n = Integer.parseInt(br.readLine());
 
-        while (n-- > 0){
-            String[] cmd = br.readLine().split(" ");
+        StringTokenizer st;
 
-            if(cmd[0].equals("push_front")){
-                deque.addFirst(Integer.parseInt(cmd[1]));
-            } else if (cmd[0].equals("push_back")) {
-                deque.addLast(Integer.parseInt(cmd[1]));
-            }else if (cmd[0].equals("pop_front")){
-                if(deque.isEmpty()){
-                    sb.append(-1).append("\n");
-                    continue;
-                }
-                int data = deque.removeFirst();
-                sb.append(data).append("\n");
-            }else if (cmd[0].equals("pop_back")){
-                if(deque.isEmpty()){
-                    sb.append(-1).append("\n");
-                    continue;
-                }
-                int data = deque.removeLast();
-                sb.append(data).append("\n");
-            } else if (cmd[0].equals("size")) {
-                sb.append(deque.size()).append("\n");
-            } else if (cmd[0].equals("empty")) {
-                sb.append(deque.isEmpty() ? 1 : 0).append("\n");
-            } else if (cmd[0].equals("front")) {
-                if(deque.isEmpty()){
-                    sb.append(-1).append("\n");
-                    continue;
-                }
-                sb.append(deque.peekFirst()).append("\n");
-            } else if (cmd[0].equals("back")) {
-                if(deque.isEmpty()){
-                    sb.append(-1).append("\n");
-                    continue;
-                }
-                sb.append(deque.peekLast()).append("\n");
+        StringBuilder sb = new StringBuilder();
+
+        ArrayList<Integer> list = new ArrayList<>();
+
+        DequeMethod dequeMethod = new DequeMethod(list);
+
+        while (n-- > 0) {
+
+            st = new StringTokenizer(br.readLine());
+
+            String s = st.nextToken();
+
+            if (s.equals("push_front")) {
+
+                dequeMethod.push_front(Integer.parseInt(st.nextToken()));
+
+            } else if (s.equals("push_back")) {
+                dequeMethod.push_back(Integer.parseInt(st.nextToken()));
+
+            } else if (s.equals("pop_front")) {
+
+                sb.append(dequeMethod.pop_front()).append("\n");
+
+            } else if (s.equals("pop_back")) {
+
+                sb.append(dequeMethod.pop_back()).append("\n");
+
+            } else if (s.equals("size")) {
+                sb.append(dequeMethod.size()).append("\n");
+            } else if (s.equals("empty")) {
+                sb.append(dequeMethod.empty()).append("\n");
+            } else if (s.equals("front")) {
+                sb.append(dequeMethod.front()).append("\n");
+            } else if (s.equals("back")) {
+                sb.append(dequeMethod.back()).append("\n");
             }
 
+
         }
+
         System.out.println(sb);
+
     }
+
+
+
+
+
 }
+
+
+class DequeMethod {
+
+    ArrayList<Integer> list;
+
+    public DequeMethod(ArrayList<Integer> list) {
+        this.list = list;
+    }
+
+
+    public void push_front(int value) {
+
+        list.add(0,value);
+
+    }
+
+    public void push_back(int value) {
+        list.add(value);
+    }
+
+    public int pop_front() {
+
+
+        if (list.isEmpty()) {
+            return -1;
+        }
+
+        int data = list.get(0);
+
+        list.remove(0);
+
+        return data;
+    }
+    public int pop_back() {
+
+
+        if (list.isEmpty()) {
+            return -1;
+        }
+
+        int data = list.get(list.size() - 1);
+
+        list.remove(list.size() - 1);
+
+        return data;
+    }
+
+    public int size() {
+
+
+        return list.size();
+    }
+
+    public int empty() {
+
+        if (list.isEmpty()) {
+            return 1;
+        }
+
+        return 0;
+
+    }
+
+    public int front() {
+        if (list.isEmpty()) {
+            return -1;
+        }
+
+        return list.get(0);
+    }
+
+    public int back() {
+        if (list.isEmpty()) {
+            return -1;
+        }
+
+        return list.get(list.size() - 1);
+    }
+
+
+
+}
+
+
+
+
+
