@@ -1,22 +1,23 @@
-import java.io.BufferedReader;
+
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int A = Integer.parseInt(st.nextToken());
-        int B = Integer.parseInt(st.nextToken());
+       Scanner sc = new Scanner(System.in);
 
-        sb.append(A + B).append("\n");
-        sb.append(A - B).append("\n");
-        sb.append(A * B).append("\n");
-        sb.append(A / B).append("\n");
-        sb.append(A % B);
-        System.out.println(sb);
+
+       int a = sc.nextInt();
+       int b = sc.nextInt();
+
+        System.out.println(a + b);
+        System.out.println(a - b);
+        System.out.println(a * b);
+        System.out.println(a / b);
+        System.out.println(a % b);
+
+
     }
 }
