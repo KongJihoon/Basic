@@ -1,28 +1,41 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
-class Main {
+public class Main {
     public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
 
-        int X = sc.nextInt();
-        int N = sc.nextInt();
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int totalPrice = Integer.parseInt(br.readLine());
+
+        int n = Integer.parseInt(br.readLine());
+        
         int result = 0;
-        for (int i = 0; i < N; i++) {
-            int a = sc.nextInt();
-            int b = sc.nextInt();
-            result += (a * b);
-
+        
+        while (n-- > 0) {
+            
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            
+            int price = Integer.parseInt(st.nextToken());
+            int quantity = Integer.parseInt(st.nextToken());
+            
+            result += price * quantity;
+            
         }
-
-        if(result == X){
+        
+        if (totalPrice == result) {
+            
             System.out.println("Yes");
-        }else {
+        } else {
             System.out.println("No");
         }
+        
+        
     }
+
+    
 
 }
