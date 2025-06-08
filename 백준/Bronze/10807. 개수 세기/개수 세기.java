@@ -15,8 +15,11 @@ public class Main {
 
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        Arrays.setAll(arr, i -> Integer.parseInt(st.nextToken()));
-
+       
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
+        }
+        
         int v = Integer.parseInt(br.readLine());
 
         int cnt = 0;
