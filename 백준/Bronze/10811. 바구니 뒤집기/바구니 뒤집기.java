@@ -1,15 +1,11 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.StringTokenizer;
-import java.util.stream.Collectors;
+
+import java.io.*;
+import java.util.*;
 import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 
@@ -18,25 +14,25 @@ public class Main {
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
-        int[] nums = IntStream.rangeClosed(1, n)
-                .toArray();
+        int[] arr = IntStream.range(1, n + 1).toArray();
 
-        for (int i = 0; i < m; i++) {
+        while (m-- > 0) {
+
             st = new StringTokenizer(br.readLine());
 
-            int left = Integer.parseInt(st.nextToken()) - 1;
-            int right = Integer.parseInt(st.nextToken()) - 1;
+            int i = Integer.parseInt(st.nextToken());
 
-            while (left < right) {
-                int temp = nums[left];
-                nums[left++] = nums[right];
-                nums[right--] = temp;
-            }
+            int j = Integer.parseInt(st.nextToken());
+
+
+            swap(arr, i - 1, j - 1);
+
 
         }
 
-        for (int num : nums) {
-            System.out.print(num + " ");
+        for (int i = 0; i < arr.length; i++) {
+
+            System.out.print(arr[i] + " ");
         }
 
 
@@ -46,5 +42,20 @@ public class Main {
 
 
     }
+
+    public static void swap(int[] arr, int i, int j) {
+
+        if (i >= j) {
+            return;
+        }
+
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+
+        swap(arr, i + 1, j - 1);
+
+    }
+
 
 }
