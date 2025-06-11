@@ -1,33 +1,38 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Stack;
-import java.util.StringTokenizer;
+
+import java.io.*;
+import java.util.*;
+import java.util.stream.IntStream;
 
 public class Main {
-
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        String s = br.readLine();
-        StringBuilder sb = new StringBuilder();
-        int[] alphabet = new int[26];
-        for (int i = 0; i < alphabet.length; i++) {
-            alphabet[i] = -1;
-        }
+        Scanner sc = new Scanner(System.in);
+
+        String s = sc.next();
+        sc.close();
+
+        int[] charArray = new int[26];
+
+        Arrays.setAll(charArray, i -> -1);
 
         for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if(alphabet[c - 'a'] != -1){
+
+            if (charArray[s.charAt(i) - 'a'] != -1) {
                 continue;
             }
-            alphabet[c - 'a'] = i;
+            charArray[s.charAt(i) - 'a'] = i;
+
         }
 
-        for (int i = 0; i < alphabet.length; i++) {
-            sb.append(alphabet[i]).append(" ");
+        for (int i = 0; i < charArray.length; i++) {
+
+            System.out.print(charArray[i] + " ");
         }
-        System.out.println(sb);
+
 
     }
+
+
+
+
 }
