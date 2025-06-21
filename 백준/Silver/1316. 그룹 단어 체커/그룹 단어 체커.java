@@ -1,48 +1,55 @@
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
-import java.util.*;
-import java.util.stream.IntStream;
 
 public class Main {
 
-    static Scanner sc = new Scanner(System.in);
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     public static void main(String[] args) throws IOException {
 
-        int cnt = 0;
-        int N = sc.nextInt();
 
-        for (int i = 0; i < N; i++) {
-            if (check() == true) {
+        int n = Integer.parseInt(br.readLine());
+
+        int cnt = 0;
+        while (n-- > 0) {
+
+            if (checkWords()) {
                 cnt++;
             }
+
         }
 
         System.out.println(cnt);
 
 
+
+
     }
 
-    public static boolean check() {
 
-        boolean[] check = new boolean[26];
+    public static boolean checkWords() throws IOException {
+
+        String str = br.readLine();
+
+        boolean[] check =new boolean[26];
+
+
         int prev = 0;
 
-        String s = sc.next();
+        for (int i = 0; i < str.length(); i++) {
 
-        for (int i = 0; i < s.length(); i++) {
+            char c = str.charAt(i);
 
-            int now = s.charAt(i);
+            if (prev != c) {
 
-            if (prev != now) {
+                if (!check[c - 'a']) {
 
-                if(check[now - 'a'] == false) {
-                    check[now - 'a'] = true;
-                    prev = now;
+
+                    check[c - 'a'] = true;
+                    prev = c;
                 } else {
+
                     return false;
                 }
 
@@ -50,13 +57,15 @@ public class Main {
                 continue;
             }
 
-
         }
-
 
 
         return true;
     }
+
+
+
+
 
 
 
