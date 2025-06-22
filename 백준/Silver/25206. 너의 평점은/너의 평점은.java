@@ -1,50 +1,76 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
-import java.util.*;
-import java.util.stream.IntStream;
+import java.util.StringTokenizer;
 
 public class Main {
 
+
+
     public static void main(String[] args) throws IOException {
 
-        Scanner sc = new Scanner(System.in);
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
+        int n = 20;
 
-        double totalSum = 0;
-        double scoreSum = 0;
-        String[] gradeList = {"A+", "A0", "B+", "B0", "C+", "C0", "D+", "D0", "F", "P"};
-        double[] gradeScore = {4.5, 4.0, 3.5, 3.0, 2.5, 2.0, 1.5, 1.0, 0.0, 0.0};
+        double sumScore = 0.0;
 
-        for (int i = 0; i < 20; i++) {
+        double sumCredit = 0.0;
 
-            String subject = sc.next();
-            double score = sc.nextDouble();
-            String grade = sc.next();
+        while (n-- > 0) {
 
-            for (int j = 0; j < 10; j++) {
-                if(grade.equals(gradeList[j])) {
-                    totalSum += score * gradeScore[j];
-                    if(j != 9) {
-                        scoreSum += score;
-                    }
-                }
+            String[] parts = br.readLine().split(" ");
 
+            double credit = Double.parseDouble(parts[1]);
+            String grade = parts[2];
+
+            if (grade.equals("P")) continue;
+
+            double gp = 0.0;
+
+            switch (grade) {
+
+                case "A+" :
+                    gp = 4.5;
+                    break;
+                case "A0" :
+                    gp = 4.0;
+                    break;
+                case "B+" :
+                    gp = 3.5;
+                    break;
+                case "B0" :
+                    gp = 3.0;
+                    break;
+                case "C+" :
+                    gp = 2.5;
+                    break;
+                case "C0" :
+                    gp = 2.0;
+                    break;
+                case "D+" :
+                    gp = 1.5;
+                    break;
+                case "D0" :
+                    gp = 1.0;
+                    break;
+                case "F" :
+                    gp = 0.0;
+                    break;
+                default: gp = 0.0;
             }
+
+            sumScore += credit * gp;
+            sumCredit += credit;
 
 
         }
 
-
-        double average = totalSum / scoreSum;
-
-        System.out.printf("%.6f",average);
+        System.out.printf("%.6f", sumScore / sumCredit);
 
 
     }
-
 
 
 
