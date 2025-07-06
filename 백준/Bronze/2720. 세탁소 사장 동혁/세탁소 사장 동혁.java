@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -5,58 +6,70 @@ import java.util.StringTokenizer;
 
 public class Main {
 
-
-
     public static void main(String[] args) throws IOException {
+
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int[] coins = {25, 10, 5, 1};
+        int n = Integer.parseInt(br.readLine());
 
-        int[] result = new int[4];
 
-        int t = Integer.parseInt(br.readLine());
+        int quarter = 25;
+        int dime = 10;
+        int nickel = 5;
+        int penny = 1;
 
-        while (t-- > 0) {
+        StringBuilder sb = new StringBuilder();
 
-            int cost = Integer.parseInt(br.readLine());
 
-            for (int i = 0; i < coins.length; i++) {
 
-                if (cost % coins[i] != 0) {
-                    if(cost < coins[i]) {
-                        continue;
-                    }
+        while (n-- > 0) {
+            int[] coins = new int[4];
 
-                    result[i] = cost / coins[i];
-                    cost = cost % coins[i];
-                } else {
-                    result[i] = cost / coins[i];
-                    break;
+            int coin = Integer.parseInt(br.readLine());
+
+            while (coin > 0) {
+
+
+
+
+
+                if (coin >= quarter) {
+
+                    coins[0] = coin / quarter;
+                    coin = coin % quarter;
                 }
 
+                if (coin >= dime) {
+                    coins[1] = coin / dime;
+
+                    coin = coin % dime;
+                }
+
+                if (coin >= nickel) {
+                    coins[2] = coin / nickel;
+
+                    coin = coin % nickel;
+                }
+
+                if (coin >= penny) {
+                    coins[3] = coin / penny;;
+                    coin = coin % penny;
+                }
+
+
             }
 
-            for (int i = 0; i < result.length; i++) {
-                System.out.print(result[i] + " ");
+            for (int i = 0; i < coins.length; i++) {
+                sb.append(coins[i]).append(" ");
             }
 
-            System.out.println();
-            
-            result = new int[4];
+            sb.append("\n");
 
         }
 
-
-
-
-
-
+        System.out.println(sb);
     }
 
-
-
-
-
-
 }
+
