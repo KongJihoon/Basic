@@ -7,39 +7,31 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int N = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine());
+        StringBuilder sb = new StringBuilder();
 
-        int num = 2;
+        for (int i = 2; i <= Math.sqrt(n); i++) {
 
-        while (true) {
 
-            if(N == 1 || N == 0) {
-                break;
+            while (n % i == 0) {
+
+                sb.append(i).append("\n");
+
+                n /= i;
+
             }
-
-            while (N % num == 0) {
-
-                N = N / num;
-                System.out.println(num);
-            }
-
-            num++;
-
         }
 
+        if (n != 1) {
+            sb.append(n);
+        }
 
-
-
+        System.out.println(sb);
 
 
     }
-
-
-
-
 
 
 
