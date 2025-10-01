@@ -1,41 +1,44 @@
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-import java.util.stream.IntStream;
 
 public class Main {
 
+
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int[] arrA = {Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())};
-        st = new StringTokenizer(br.readLine()) ;
-        int[] arrB = {Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())};
-        st = new StringTokenizer(br.readLine()) ;
-        int[] arrC = {Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())};
 
-        int x = 0;
-        int y = 0;
+        String[] arrA = br.readLine().split(" ");
+        String[] arrB = br.readLine().split(" ");
+        String[] arrC = br.readLine().split(" ");
 
-        if(arrA[0] == arrB[0]){
-            x = arrC[0];
-        } else if (arrA[0] == arrC[0]) {
-            x = arrB[0];
-        } else if (arrB[0] == arrC[0]) {
-            x = arrA[0];
+        String[] result = new String[2];
+
+        if (arrA[0].equals(arrB[0])) {
+            result[0] = arrC[0];
+        } else if (arrA[0].equals(arrC[0])) {
+            result[0] = arrB[0];
+        } else {
+            result[0] = arrA[0];
         }
 
-        if(arrA[1] == arrB[1]){
-            y = arrC[1];
-        } else if (arrA[1] == arrC[1]) {
-            y = arrB[1];
-        } else if (arrB[1] == arrC[1]) {
-            y = arrA[1];
+        if (arrA[1].equals(arrB[1])) {
+            result[1] = arrC[1];
+        } else if (arrA[1].equals(arrC[1])) {
+            result[1] = arrB[1];
+        } else {
+            result[1] = arrA[1];
         }
 
-        System.out.println(x + " " + y);
+        for (String s : result) {
+            System.out.print(s + " ");
+        }
+
 
     }
+
+
+
 }
