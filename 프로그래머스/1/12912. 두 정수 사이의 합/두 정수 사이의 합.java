@@ -1,5 +1,3 @@
-import java.util.stream.IntStream;
-
 class Solution {
     public long solution(int a, int b) {
 
@@ -7,8 +5,17 @@ class Solution {
             return a;
         }
 
-        return IntStream.rangeClosed(Math.min(a, b), Math.max(a, b))
-                .asLongStream()
-                .sum();
+        int min = Math.min(a, b);
+        
+        int max = Math.max(a, b);
+
+        long result = 0;
+        
+        for (int i = min; i <= max; i++) {
+            result += i;
+        }
+        
+        
+        return result;
     }
 }
