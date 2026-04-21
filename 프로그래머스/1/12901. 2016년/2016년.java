@@ -1,23 +1,21 @@
 class Solution {
     public String solution(int a, int b) {
         String answer = "";
-        
-        int[] days = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        
-        String[] dayOfWeek = {"FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU"};
-        
-        int totalDay = 0;
+
+        String[] days = {"FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU"};
+
+        int[] month = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+        int total = 0;
 
         for (int i = 0; i < a - 1; i++) {
-            
-            totalDay += days[i];
+
+            total += month[i];
+
         }
-        
-        totalDay += b;
-        
-        answer = dayOfWeek[((totalDay - 1) % 7)];
 
+        total += (b - 1);
 
-        return answer;
+        return days[total % 7];
     }
 }
