@@ -12,12 +12,8 @@ class Solution {
 
             set.add(itemA);
         }
-
-        answer = set.size();
-
-        if (answer > nums.length / 2) {
-            answer = nums.length / 2;
-        }
+        
+        answer = Math.min(set.size(), nums.length / 2);
 
         return answer;
     }
