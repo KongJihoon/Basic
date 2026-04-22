@@ -1,42 +1,30 @@
 import java.util.*;
+
 public class Solution {
-    public int[] solution(int []arr) {
-        int[] answer = {};
-
+    public ArrayList<Integer> solution(int []arr) {
+        
+        ArrayList<Integer> result = new ArrayList<>();
+        
+        
         Stack<Integer> stack = new Stack<>();
+        
+        stack.push(arr[0]);
 
-        Stack<Integer> result = new Stack<>();
-
-
-        for (int item : arr) {
-
-            if (stack.isEmpty()) {
-                stack.push(item);
-                continue;
-            } else if (stack.peek() == item) {
-                continue;
+        for (int i = 1; i < arr.length; i++) {
+            
+            if (arr[i] != stack.peek()) {
+                
+                result.add(stack.pop());
+                
+                stack.push(arr[i]);
             }
-
-            stack.push(item);
-
+            
+        }
+        
+        if (!stack.isEmpty()) {
+            result.add(stack.pop());
         }
 
-        answer = new int[stack.size()];
-
-
-        for (int i = 0; i < answer.length; i++) {
-
-            result.push(stack.pop());
-        }
-
-
-        for (int i = 0; i < answer.length; i++) {
-
-            answer[i] = result.pop();
-        }
-
-
-        return answer;
+        return result;
     }
-
 }
