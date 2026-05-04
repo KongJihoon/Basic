@@ -1,81 +1,37 @@
-
 class Solution {
+    public int solution(int[] nums) {
+
+        int cnt = 0;
 
 
-
-    private static int cnt;
-
-    public static int solution(int[] nums) {
-
-        boolean[] visited = new boolean[nums.length];
-
-        comb(nums, visited, 0, 3);
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                for (int k = j + 1; k < nums.length; k++) {
+                    
+                    int num = nums[i] + nums[j] + nums[k];
+                    
+                    if (isPrime(num)) {
+                        cnt++;
+                    }
+                    
+                    
+                }
+            }
+        }
 
         return cnt;
     }
 
-    public static void comb(int[] nums, boolean[] visited, int depth, int r) {
+    public boolean isPrime (int n) {
+        if (n <= 1) return false;
+        if (n == 2) return true;
 
-        if (r == 0) {
+        if (n % 2 == 0) return false;
 
-            int sum = 0;
-
-            for (int i = 0; i < nums.length; i++) {
-                if (visited[i]) {
-                    sum += nums[i];
-                }
-
-            }
-
-            if (isPrime(sum)) {
-                cnt++;
-            }
-            
-            return;
-
-
-        }
-
-        if (depth == nums.length) {
-            return;
-        }
-
-
-        visited[depth] = true;
-        comb(nums, visited, depth + 1, r - 1);
-
-        visited[depth] = false;
-
-        comb(nums, visited, depth + 1, r);
-
-    }
-    
-    
-    public static boolean isPrime(int n) {
-        
-        if (n <= 1) {
-            return false;
-        }
-
-
-        for (int i = 2; i <= Math.sqrt(n); i++) {
-            if (n % i == 0) {
-                return false;
-            }
+        for (int i = 3; i * i<= n ; i += 2) {
+            if (n % i == 0) return false;
         }
 
         return true;
-    }
-
-
-    public static void main(String[] args) {
-
-        int[] nums = {1,2,7,6,4};
-
-        int solution = solution(nums);
-
-        System.out.println("solution = " + solution);
-
-
     }
 }
