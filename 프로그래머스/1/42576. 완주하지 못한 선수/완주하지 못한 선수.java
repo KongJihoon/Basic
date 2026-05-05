@@ -1,25 +1,28 @@
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 class Solution {
     public String solution(String[] participant, String[] completion) {
         String answer = "";
-        HashMap<String,Integer> map = new HashMap<>();
-        for (String item : participant){
-            map.put(item,map.getOrDefault(item,0) + 1);
-        }
-        for (String item : completion){
-            map.put(item,map.get(item) - 1);
+
+        HashMap<String, Integer> map = new HashMap<>();
+
+        for (String key : participant) {
+            map.put(key, map.getOrDefault(key, 0) + 1);
         }
 
-        for (Map.Entry<String,Integer> Item: map.entrySet()){
-            if(Item.getValue() != 0){
-                answer = Item.getKey();
-                break;
+
+        for (String key : completion) {
+
+            int n = map.get(key) - 1;
+
+            if (n == 0) {
+                map.remove(key);
+            } else {
+                map.put(key, n);
             }
         }
 
-        return answer;
+        return map.keySet().iterator().next();
     }
 }
