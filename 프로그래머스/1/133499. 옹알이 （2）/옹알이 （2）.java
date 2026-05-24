@@ -2,59 +2,61 @@ class Solution {
     public int solution(String[] babbling) {
         int answer = 0;
 
+        /**
+         * aya, ye, woo, ma 단어로만 조합가능
+         * 예시 ayaye 단어가 주어질 때 생성한 발음 배열로 시작하는지 판별
+         * 만약 발견되면 subString으로 문자열을 줄인다.
+         * boolean possible 및 found로 플래그를 걸어 아예 없을 경우 빠르게 while문 break
+         */
 
-        String[] check = { "aya", "ye", "woo", "ma"};
 
-        for (int i = 0; i < babbling.length; i++) {
+        String[] words = {"aya", "ye", "woo", "ma"};
 
-            String word = babbling[i];
-            int idx = 0;
-            boolean ok = true;
+        for (String s : babbling) {
+
+            boolean possible = true;
+
             String prev = "";
 
-            while (idx < babbling[i].length()) {
+            while (!s.isEmpty()) {
 
-                boolean matched = false;
+                boolean found = false;
 
-                for (int j = 0; j < check.length; j++) {
+                for (String word : words) {
 
-                    String s = check[j];
 
-                    if (word.startsWith(s, idx)) {
-
-                        if (prev.equals(s)) {
-                            ok = false;
-                            break;
-                        }
-
-                        idx += s.length();
-                        prev = s;
-                        matched = true;
-
+                    if (s.startsWith(word) && !prev.equals(word)) {
+                        
+                        s = s.substring(word.length());
+                        
+                        prev = word;
+                        
+                        found = true;
+                        
                         break;
 
+                        
                     }
 
-
                 }
-
-                if (!ok) {
-                    break;
-                }
-
-                if (!matched) {
+                
+                if (!found) {
+                    possible = false;
                     break;
                 }
 
 
             }
 
-            if (ok && idx == word.length()) {
+
+            if (possible) {
                 answer++;
             }
 
 
         }
+
+
 
         return answer;
     }
