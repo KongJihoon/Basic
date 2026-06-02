@@ -1,57 +1,57 @@
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 class Solution {
-    public static ArrayList<Integer> solution(String today, String[] terms, String[] privacies) {
+    public int[] solution(String today, String[] terms, String[] privacies) {
 
-        // 1~n번으로 분류되는 개인정보 n개 -> 약관종류는 여러개, 유효기간이 정해져있다.
-        // 수집된 개인정보는 유효기간 전까지만 보관 가능 -> 지나면 반드시 파기해야함
+        List<Integer> result = new ArrayList<>();
 
+        Map<String, Integer> termMap = new HashMap<>();
 
-        ArrayList<Integer> list = new ArrayList<>();
+        for (String term : terms) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+            String[] split = term.split(" ");
 
-        LocalDate day = LocalDate.parse(today, formatter);
+            termMap.put(split[0], Integer.parseInt(split[1]) * 28);
 
-        for (int i = 0; i < terms.length; i++) {
+        }
 
-            String[] term = terms[i].split(" ");
+        int todayDays = toDays(today);
 
-            String keyword = term[0];
-            String plusMonth = term[1];
+        for (int i = 0; i < privacies.length; i++) {
 
-            for (int j = 0; j < privacies.length; j++) {
+            String[] split = privacies[i].split(" ");
 
+            int collectDays = toDays(split[0]);
 
-                if (privacies[j].contains(keyword)) {
-                    String[] termDate = privacies[j].split(" ");
+            String type = split[1];
 
-                    LocalDate date = LocalDate.parse(termDate[0], formatter).plusMonths(Long.parseLong(plusMonth));
+            int expireDays = collectDays + termMap.get(type);
 
-                    if (day.isAfter(date) || day.isEqual(date)) {
-                        list.add(j+1);
-                    }
-
-                }
-
-
+            if (todayDays >= expireDays) {
+                result.add(i + 1);
             }
 
         }
-        list.sort(Comparator.naturalOrder());
-        return list;
+
+
+        return result.stream()
+                .mapToInt(Integer::intValue)
+                .toArray();
     }
 
-    public static void main(String[] args) {
+
+    public int toDays(String date) {
+
+        String[] split = date.split("\\.");
+
+        int year = Integer.parseInt(split[0]);
+        int month = Integer.parseInt(split[1]);
+        int day = Integer.parseInt(split[2]);
 
 
-        String today = "2020.01.01";
-        String[] terms = {"Z 3", "D 5"};
-        String[] privacies = {"2019.01.01 D", "2019.11.15 Z", "2019.08.02 D", "2019.07.01 D", "2018.12.28 Z"};
-
-        System.out.println(solution(today, terms, privacies));
+        return year * 12 * 28 + month * 28 + 28 + day;
     }
 }
