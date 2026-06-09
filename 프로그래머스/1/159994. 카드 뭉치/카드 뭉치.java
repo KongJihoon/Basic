@@ -1,42 +1,27 @@
-
-import java.util.ArrayDeque;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
 class Solution {
-    public static String solution(String[] cards1, String[] cards2, String[] goal) {
+    public String solution(String[] cards1, String[] cards2, String[] goal) {
 
-        Queue<String> q1 = new LinkedList<>(List.of(cards1));
 
-        Queue<String> q2 = new LinkedList<>(List.of(cards2));
+        String answer = "";
 
-        for (String s : goal) {
+        int idx1 = 0;
 
-            if (!q1.isEmpty() && q1.peek().equals(s)) {
-                q1.poll();
-            } else if (!q2.isEmpty() && q2.peek().equals(s)) {
-                q2.poll();
+        int idx2 = 0;
+
+        for (String word : goal) {
+            
+            if (idx1 < cards1.length && word.equals(cards1[idx1])) {
+                idx1++;
+            } else if (idx2 < cards2.length && word.equals(cards2[idx2])) {
+                idx2++;
             } else {
                 return "No";
             }
 
-
         }
+        
+        answer = "Yes";
 
-        return "Yes";
-
+        return answer;
     }
-
-    public static void main(String[] args) {
-        String[] cards1 = {"i", "drink", "water"};
-        String[] cards2 = {"want", "to"};
-
-        String[] goals = {"i", "want", "to", "drink", "water"};
-
-        System.out.println(solution(cards1, cards2, goals));
-    }
-
 }
-
-
