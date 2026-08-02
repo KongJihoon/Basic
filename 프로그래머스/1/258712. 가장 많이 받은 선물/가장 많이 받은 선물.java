@@ -7,26 +7,25 @@ class Solution {
 
         int len = friends.length;
 
-        Map<String, Integer> friendIndex = new HashMap<>();
+        Map<String, Integer> map = new HashMap<>();
 
         for (int i = 0; i < len; i++) {
 
-            friendIndex.put(friends[i], i);
+            map.put(friends[i], i);
 
         }
 
         int[][] giftCount = new int[len][len];
-
         int[] giftScore = new int[len];
 
-        int[] nextGiftCount = new int[len];
+        int[] nextGifted = new int[len];
 
-        for (String gift : gifts) {
+        for (int i = 0; i < gifts.length; i++) {
 
-            String[] names = gift.split(" ");
+            String[] split = gifts[i].split(" ");
 
-            int giver = friendIndex.get(names[0]);
-            int receiver = friendIndex.get(names[1]);
+            int giver = map.get(split[0]);
+            int receiver = map.get(split[1]);
 
             giftCount[giver][receiver]++;
 
@@ -35,32 +34,35 @@ class Solution {
 
         }
 
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < giftCount.length; i++) {
 
-            for (int j = i + 1; j < len; j++) {
-                
+            for (int j = i + 1; j < giftCount[i].length; j++) {
+
+
                 if (giftCount[i][j] > giftCount[j][i]) {
-                    nextGiftCount[i]++;
+                    nextGifted[i]++;
                 } else if (giftCount[i][j] < giftCount[j][i]) {
-                    nextGiftCount[j]++;
+
+                    nextGifted[j]++;
                 } else {
+
                     if (giftScore[i] > giftScore[j]) {
-                        nextGiftCount[i]++;
+                        nextGifted[i]++;
                     } else if (giftScore[i] < giftScore[j]) {
-                        nextGiftCount[j]++;
+                        nextGifted[j]++;
                     }
 
                 }
 
-
             }
-            
+
         }
-        
-        for (int count : nextGiftCount) {
+
+        for (int count : nextGifted) {
             answer = Math.max(answer, count);
         }
-        
+
+
 
         return answer;
     }
