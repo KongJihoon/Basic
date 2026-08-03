@@ -1,90 +1,82 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 class Solution {
     public int solution(String message, int[][] spoiler_ranges) {
-
-
         int answer = 0;
 
         int messageLen = message.length();
 
-        int rangeLen = spoiler_ranges.length;
+        List<List<String>> spoilerWords = new ArrayList<>();
 
-        int[] spoilerIndex = new int[messageLen];
-
-        Arrays.fill(spoilerIndex, -1);
-
-        for (int i = 0; i < rangeLen; i++) {
-
-            int start = spoiler_ranges[i][0];
-            int end = spoiler_ranges[i][1];
-
-            for (int j = start; j <= end; j++) {
-                spoilerIndex[j] = i;
-            }
-
+        for (int i = 0; i < spoiler_ranges.length; i++) {
+            spoilerWords.add(new ArrayList<>());
         }
 
-        List<List<String>> wordByRevealOrder = new ArrayList<>();
-
-        for (int i = 0; i < rangeLen; i++) {
-            
-            wordByRevealOrder.add(new ArrayList<>());
-        }
+        int index = 0;
 
         Set<String> normalWords = new HashSet<>();
-        
-        int index = 0;
-        
+
         while (index < messageLen) {
-            
-            int wordStart = index;
-            
+
+            int startIndex = index;
+
             while (index < messageLen && message.charAt(index) != ' ') {
                 index++;
             }
-            
-            int wordEnd = index - 1;
-            
-            String word = message.substring(wordStart, index);
-            
-            
-            int revealOrder = -1;
 
-            for (int i = wordStart; i <= wordEnd; i++) {
-                
-                revealOrder = Math.max(revealOrder, spoilerIndex[i]);
-                
+            int endIndex = index - 1;
+
+            boolean isSpoiler = false;
+
+            String word = message.substring(startIndex, index);
+
+            for (int i = 0; i < spoiler_ranges.length; i++) {
+
+                int rangeStart = spoiler_ranges[i][0];
+                int rangeEnd = spoiler_ranges[i][1];
+
+                if (isOverlap(startIndex, endIndex, rangeStart, rangeEnd)) {
+                    isSpoiler = true;
+
+                    spoilerWords.get(i).add(word);
+                }
             }
             
-            if (revealOrder == -1) {
+            if (!isSpoiler) {
                 normalWords.add(word);
-            } else {
-                wordByRevealOrder.get(revealOrder).add(word);
             }
             
             index++;
-            
+
         }
         
-        Set<String> revealWords = new HashSet<>();
+        Set<String> confirmWords = new HashSet<>();
         
-        for (List<String> words : wordByRevealOrder) {
-            
+        for (List<String> words : spoilerWords) {
             
             for (String word : words) {
-                boolean isImportant = !normalWords.contains(word) && !revealWords.contains(word);
+                
+                boolean isImportant = !normalWords.contains(word) && !confirmWords.contains(word);
                 
                 if (isImportant) {
                     answer++;
                 }
                 
-                revealWords.add(word);
+                confirmWords.add(word);
+                
             }
             
         }
 
 
         return answer;
+    }
+
+    private boolean isOverlap(int wordStart, int wordEnd, int rangeStart, int rangeEnd) {
+
+        return Math.max(wordStart, rangeStart) <= Math.min(wordEnd, rangeEnd);
     }
 }
