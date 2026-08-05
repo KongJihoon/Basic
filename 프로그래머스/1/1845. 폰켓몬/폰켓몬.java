@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,14 +6,13 @@ class Solution {
         int answer = 0;
 
         Set<Integer> set = new HashSet<>();
-
-        for (int itemA : nums) {
-
-            set.add(itemA);
+        
+        for (int num : nums) {
+            set.add(num);
         }
         
-        answer = Math.min(set.size(), nums.length / 2);
-
-        return answer;
+        int limit = nums.length / 2;
+        
+        return Math.min(set.size(), limit);
     }
 }
