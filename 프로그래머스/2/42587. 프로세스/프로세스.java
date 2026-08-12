@@ -6,11 +6,11 @@ class Solution {
 
         int count = 0;
 
-        Queue<int[]> queue = new LinkedList<>();
+        Queue<Priority> queue = new LinkedList<>();
 
         for (int i = 0; i < priorities.length; i++) {
 
-            queue.offer(new int[]{i, priorities[i]});
+            queue.offer(new Priority(i, priorities[i]));
 
         }
 
@@ -26,17 +26,17 @@ class Solution {
 
         while (!queue.isEmpty()) {
 
-            int[] curr = queue.poll();
+            Priority priority = queue.poll();
 
-            if (curr[1] == list.get(idx)) {
+            if (priority.value == list.get(idx)) {
                 count++;
-                if (curr[0] == location) {
+                if (priority.index == location) {
                     return count;
                 }
-                
+
                 idx++;
             } else {
-                queue.offer(curr);
+                queue.offer(priority);
             }
 
 
@@ -46,5 +46,15 @@ class Solution {
 
 
         return count;
+    }
+    
+    class Priority {
+        int index;
+        int value;
+        
+        public Priority(int index, int value) {
+            this.index = index;
+            this.value = value;
+        }
     }
 }
