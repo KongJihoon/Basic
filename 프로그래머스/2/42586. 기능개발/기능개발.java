@@ -11,27 +11,35 @@ class Solution {
 
         for (int i = progresses.length - 1; i >= 0; i--) {
 
-            int endOfDay = (int) Math.ceil((100.0 - progresses[i]) / speeds[i]);
+            int remainDays = (int) Math.ceil((100.0 - progresses[i]) / speeds[i]);
 
-            stack.push(endOfDay);
+
+            stack.push(remainDays);
+
 
         }
 
+
         while (!stack.isEmpty()) {
 
-            int checkDay = stack.pop();
+            int day = stack.pop();
 
             int cnt = 1;
 
-            while (!stack.isEmpty() && stack.peek() <= checkDay) {
+            while (!stack.isEmpty() && stack.peek() <= day) {
+
                 cnt++;
                 stack.pop();
             }
 
-
+            
             list.add(cnt);
+
         }
 
-        return list.stream().mapToInt(Integer::intValue).toArray();
+
+        return list.stream()
+                .mapToInt(Integer::intValue)
+                .toArray();
     }
 }
