@@ -6,19 +6,16 @@ import java.util.Map;
 class Solution {
     public int[] solution(String[] genres, int[] plays) {
 
-        // 속한 노래가 많이 재생된 장르를 먼저 수록
-        // 장르 내에서 많이 재생된 노래를 먼저 수록
-        // 장르 내에서 노래 재생 횟수가 같다면 고유번호(index)가 낮은 노래를 먼저 수록
+        Map<String, Integer> genrePlays = new HashMap<>();
 
-        Map<String, Integer> totalPlay = new HashMap<>();
         Map<String, List<Music>> genreByMusic = new HashMap<>();
 
-        for (int i = 0; i < genres.length; i++) {
 
+        for (int i = 0; i < genres.length; i++) {
             String genre = genres[i];
             int play = plays[i];
 
-            totalPlay.put(genre, totalPlay.getOrDefault(genre, 0) + play);
+            genrePlays.put(genre, genrePlays.getOrDefault(genre, 0) + play);
 
             if (!genreByMusic.containsKey(genre)) {
                 genreByMusic.put(genre, new ArrayList<>());
@@ -28,33 +25,35 @@ class Solution {
 
         }
 
-        List<String> sortByGenre = new ArrayList<>(totalPlay.keySet());
+        List<String> sortByGenre = new ArrayList<>(genrePlays.keySet());
 
         sortByGenre.sort(
-                (g1, g2) -> totalPlay.get(g2) - totalPlay.get(g1)
+                (g1, g2) -> genrePlays.get(g2) - genrePlays.get(g1)
         );
 
         List<Integer> answer = new ArrayList<>();
 
+
         for (String genre : sortByGenre) {
 
-            List<Music> music = genreByMusic.get(genre);
+            List<Music> musics = genreByMusic.get(genre);
 
-            music.sort(
-                    (s1, s2) -> {
-                        if (s1.play == s2.play) {
-                            return s1.index - s2.index;
+            musics.sort(
+                    (m1, m2) -> {
+                        if (m1.play == m2.play) {
+                            return m1.index - m2.index;
                         }
 
-                        return s2.play - s1.play;
+                        return m2.play - m1.play;
                     }
             );
 
-            answer.add(music.get(0).index);
+            answer.add(musics.get(0).index);
 
-            if (music.size() > 1) {
-                answer.add(music.get(1).index);
+            if (musics.size() > 1) {
+                answer.add(musics.get(1).index);
             }
+
 
         }
 
@@ -65,12 +64,15 @@ class Solution {
     }
 
     class Music {
+
         int index;
+
         int play;
 
         public Music(int index, int play) {
             this.index = index;
             this.play = play;
         }
+
     }
 }
