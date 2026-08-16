@@ -1,36 +1,45 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 class Solution {
-    public int[] solution(int[] array, int[][] commands) {
+    public static int[] solution(int[] array, int[][] commands) {
         int[] answer = new int[commands.length];
 
 
-        for (int i = 0; i < commands.length; i++) {
+        for (int index = 0; index < commands.length; index++) {
 
-            int[] arr = getArr(array, commands[i][0], commands[i][1]);
-            
-            answer[i] = arr[commands[i][2] - 1];
+            int i = commands[index][0];
+            int j = commands[index][1];
+            int k = commands[index][2];
+
+            List<Integer> list = new ArrayList<>();
+
+            for (int l = i - 1; l <= j - 1; l++) {
+
+                list.add(array[l]);
+
+            }
+
+            list.sort(Comparator.naturalOrder());
+
+            answer[index] = list.get(k - 1);
+
+
 
         }
-        
+
+
+
         return answer;
     }
-    
-    
-    
-    public int[] getArr(int[] arr, int i, int j) {
-        
-        int[] result = new int[j - i + 1];
 
-        int idx = 0;
-        for (int k = i - 1; k < j; k++) {
-            result[idx++] = arr[k];   
-        }
+    public static void main(String[] args) {
+        int[] array = {1, 5, 2, 6, 3, 7, 4};
 
-        Arrays.sort(result);
-        
-        
-        return result;
+        int[][] commands = {{2, 5, 3}, {4, 4, 1}, {1,7, 3}};
+
+        System.out.println(List.of(solution(array, commands)));
     }
-    
 }
