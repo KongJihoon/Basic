@@ -5,16 +5,12 @@ class Solution {
         int answer = 0;
 
         Arrays.sort(citations);
-        
-        int len = citations.length;
 
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < citations.length; i++) {
             
+            int min = Math.min(citations[i], citations.length - i);
             
-            if (citations[i] >= len - i) {
-                answer = len - i;
-                break;
-            }
+            answer = Math.max(answer, min);
             
         }
         
