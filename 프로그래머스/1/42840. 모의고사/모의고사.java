@@ -1,51 +1,47 @@
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.List;
 
 class Solution {
-    public ArrayList<Integer> solution(int[] answers) {
+    public int[] solution(int[] answers) {
+        int[] answer = {};
+
+        int[] pickA = {1,2,3,4,5};
+        int[] pickB = {2,1,2,3,2,4,2,5};
+        int[] pickC = { 3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
+        
+        int scoreA = getScore(answers, pickA);
+        int scoreB = getScore(answers, pickB);
+        int scoreC = getScore(answers, pickC);
+
+        int maxScore = Math.max(scoreA, Math.max(scoreB, scoreC));
+
+        List<Integer> list = new ArrayList<>();
+        
+        if (scoreA == maxScore) list.add(1);
+        
+        if (scoreB == maxScore) list.add(2);
+        
+        if (scoreC == maxScore) list.add(3);
+        
         
 
-        int[][] patterns = {{1,2,3,4,5}, {2,1,2,3,2,4,2,5}, {3,3,1,1,2,2,4,4,5,5}};
-
-        int sumA = getScore(answers, patterns[0]);
-        int sumB = getScore(answers, patterns[1]);
-        int sumC = getScore(answers, patterns[2]);
-
-        
-        int max = Math.max(sumA, Math.max(sumB, sumC));
-        
-        int[] answer = {sumA, sumB, sumC};
-        
-        ArrayList<Integer> list = new ArrayList<>();
-
-        for (int i = 0; i < answer.length; i++) {
-            
-            if (answer[i] == max) {
-                list.add(i + 1);
-            } 
-            
-        }
-
-        Collections.sort(list);
-
-        return list;
+        return list.stream()
+                .mapToInt(Integer::intValue)
+                .toArray();
     }
-    
-    
-    public int getScore(int[] answers, int[] pattern) {
 
-        int sum = 0;
+    private int getScore(int[] answers, int[] pick) {
+    
+        int score = 0;
 
         for (int i = 0; i < answers.length; i++) {
             
-            if (answers[i] == pattern[i % pattern.length]) {
-                sum++;
+            if (answers[i] == pick[i % pick.length]) {
+                score++;
             }
             
         }
-        
-        
-        return sum;
-        
+    
+        return score;
     }
 }
