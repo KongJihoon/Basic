@@ -11,9 +11,9 @@ class Solution {
         return answer;
     }
 
-    public void dfs(int fatigue, int[][] dungeons, int count) {
+    private void dfs(int k, int[][] dungeons, int count) {
 
-        answer = Math.max(count, answer);
+        answer = Math.max(answer, count);
 
         for (int i = 0; i < dungeons.length; i++) {
 
@@ -21,18 +21,17 @@ class Solution {
                 continue;
             }
 
-            if (fatigue < dungeons[i][0]) {
+            if (k < dungeons[i][0]) {
                 continue;
             }
 
             visited[i] = true;
 
-            dfs(fatigue - dungeons[i][1], dungeons, count+1);
+            dfs(k - dungeons[i][1], dungeons, count+1);
 
             visited[i] = false;
 
         }
-
 
     }
 }
