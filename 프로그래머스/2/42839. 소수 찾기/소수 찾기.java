@@ -11,23 +11,22 @@ class Solution {
         int answer = 0;
 
         visited = new boolean[numbers.length()];
-        
-        String current = "";
-        
-        dfs(current, numbers);
-        
+
+        dfs("", numbers);
+
         for (int num : set) {
+
             if (isPrime(num)) {
                 answer++;
             }
+
         }
 
 
         return answer;
     }
 
-
-    public void dfs(String current, String numbers) {
+    private void dfs(String current, String numbers) {
 
         for (int i = 0; i < numbers.length(); i++) {
 
@@ -36,7 +35,7 @@ class Solution {
             }
 
             visited[i] = true;
-
+            
             String next = current + numbers.charAt(i);
 
             set.add(Integer.parseInt(next));
@@ -47,15 +46,16 @@ class Solution {
 
         }
 
+
     }
 
-    public boolean isPrime(int num) {
+    private boolean isPrime(int num) {
 
         if (num < 2) {
             return false;
         }
 
-        for (int i = 2; i * i <= num; i++) {
+        for (int i = 2; i <= Math.sqrt(num); i++) {
 
             if (num % i == 0) {
                 return false;
