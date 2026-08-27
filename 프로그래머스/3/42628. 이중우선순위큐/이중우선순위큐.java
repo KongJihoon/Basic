@@ -1,22 +1,12 @@
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 class Solution {
-    boolean[] valid;
-
     public int[] solution(String[] operations) {
-        int[] answer = {};
 
-        PriorityQueue<Num> minQ = new PriorityQueue<>(
-                (n1, n2) -> Integer.compare(n1.value, n2.value)
-        );
+        PriorityQueue<Integer> minQ = new PriorityQueue<>();
+        PriorityQueue<Integer> maxQ = new PriorityQueue<>(Comparator.reverseOrder());
 
-        PriorityQueue<Num> maxQ = new PriorityQueue<>(
-                (n1, n2) -> Integer.compare(n2.value, n1.value)
-        );
-
-        valid = new boolean[operations.length];
-
-        int idx = 0;
 
         for (String operation : operations) {
 
@@ -25,70 +15,29 @@ class Solution {
             String command = split[0];
             int value = Integer.parseInt(split[1]);
 
-
             if (command.equals("I")) {
-
-                Num num = new Num(idx, value);
-
-                minQ.offer(num);
-                maxQ.offer(num);
-
-                valid[idx] = true;
-                idx++;
-
+                maxQ.offer(value);
+                minQ.offer(value);
             } else {
 
-                clean(minQ);
-                clean(maxQ);
-
                 if (value == 1) {
-                    if (!maxQ.isEmpty()) {
-                        Num num = maxQ.poll();
-                        
-                        valid[num.idx] = false;
-                        
-                    }
+                    
+                    minQ.remove(maxQ.poll());
+                    
                 } else {
                     
-                    if (!minQ.isEmpty()) {
-                        Num num = minQ.poll();
-                        valid[num.idx] = false;
-                    }
+                    maxQ.remove(minQ.poll());
                     
                 }
-                
-
             }
 
         }
         
-        clean(minQ);
-        clean(maxQ);
-        
         if (minQ.isEmpty()) {
             return new int[]{0, 0};
         }
-        
 
-        return new int[]{maxQ.peek().value, minQ.peek().value};
-    }
 
-    private void clean(PriorityQueue<Num> priorityQueue) {
-
-        while (!priorityQueue.isEmpty() && !valid[priorityQueue.peek().idx]) {
-            priorityQueue.poll();
-        }
-
-    }
-}
-
-class Num {
-
-    int idx;
-    int value;
-
-    public Num(int idx, int value) {
-        this.idx = idx;
-        this.value = value;
+        return new int[]{maxQ.peek(), minQ.peek()};
     }
 }
