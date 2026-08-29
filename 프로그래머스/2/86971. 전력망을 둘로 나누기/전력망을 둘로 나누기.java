@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
-    
-    List<List<Integer>> graph;
 
     boolean[] visited;
+
+    List<List<Integer>> graph;
 
     public int solution(int n, int[][] wires) {
         int answer = Integer.MAX_VALUE;
@@ -13,6 +13,7 @@ class Solution {
         graph = new ArrayList<>();
 
         for (int i = 0; i <= n; i++) {
+
             graph.add(new ArrayList<>());
         }
 
@@ -23,13 +24,13 @@ class Solution {
 
             graph.get(wireA).add(wireB);
             graph.get(wireB).add(wireA);
+
         }
 
+        for (int[] wire : wires) {
 
-        for (int i = 0; i < wires.length; i++) {
-
-            int cutA = wires[i][0];
-            int cutB = wires[i][1];
+            int cutA = wire[0];
+            int cutB = wire[1];
 
             visited = new boolean[n + 1];
 
@@ -37,9 +38,10 @@ class Solution {
 
             int other = n - count;
 
-            int result = Math.abs(count - other);
+            int diff = Math.abs(count - other);
 
-            answer = Math.min(answer, result);
+
+            answer = Math.min(answer, diff);
 
         }
 
@@ -55,14 +57,13 @@ class Solution {
 
         for (int next : graph.get(curr)) {
 
-            if ((curr == cutA && next == cutB) || (next == cutA && curr == cutB)) {
+            if ((curr == cutA &&  next == cutB) || (curr == cutB && next == cutA)) {
                 continue;
             }
-
+            
             if (!visited[next]) {
                 count += dfs(next, cutA, cutB);
             }
-
 
         }
 
