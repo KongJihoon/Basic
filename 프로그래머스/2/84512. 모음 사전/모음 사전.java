@@ -2,43 +2,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
-    List<String> list = new ArrayList<>();
-    char[] chars = {'A', 'E', 'I', 'O', 'U'};
 
+    char[] words = {'A', 'E', 'I', 'O', 'U'};
+
+    List<String> list = new ArrayList<>();
 
     public int solution(String word) {
         int answer = 0;
-
+        
         dfs("");
 
         for (int i = 0; i < list.size(); i++) {
-            
+
             if (list.get(i).equals(word)) {
                 answer = i + 1;
             }
-            
+
         }
 
         return answer;
     }
 
-    private void dfs(String current) {
 
-        if (current.length() == 5) {
+    public void dfs(String curr) {
+
+        if (curr.length() == 5) {
             return;
         }
 
-        for (char c : chars) {
+        for (char word : words) {
 
-            String next = current + c;
+            String next = curr + word;
 
             list.add(next);
 
             dfs(next);
 
         }
-
-
 
     }
 }
