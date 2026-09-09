@@ -1,14 +1,21 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 class Solution {
 
     boolean[] visited;
-    ArrayList<ArrayList<String>> result = new ArrayList<>();
     ArrayList<String> routes = new ArrayList<>();
 
 
     public String[] solution(String[][] tickets) {
 
+        Arrays.sort(tickets, (a, b) -> {
+            if (a[0].equals(b[0])) {
+                return a[1].compareTo(b[1]);
+            }
+
+            return a[0].compareTo(b[0]);
+        });
 
         routes.add("ICN");
 
@@ -16,24 +23,14 @@ class Solution {
 
         dfs("ICN", 0, tickets);
 
-        result.sort((a, b) -> {
-            for (int i = 0; i < a.size(); i++) {
-                if (!a.get(i).equals(b.get(i))) {
-                    return a.get(i).compareTo(b.get(i));
-                }
-            }
-
-            return 0;
-        });
-
-        return result.get(0).toArray(new String[0]);
+        return routes.toArray(new String[0]);
     }
 
-    private void dfs(String cur, int count, String[][] tickets) {
+    private boolean dfs(String cur, int count, String[][] tickets) {
 
         if (count == tickets.length) {
-            result.add(new ArrayList<>(routes));
-            return;
+
+            return true;
         }
 
         for (int i = 0; i < tickets.length; i++) {
@@ -49,7 +46,9 @@ class Solution {
             visited[i] = true;
             routes.add(tickets[i][1]);
 
-            dfs(tickets[i][1], count + 1, tickets);
+            if (dfs(tickets[i][1], count + 1, tickets)) {
+                return true;
+            }
 
             routes.remove(routes.size() - 1);
             visited[i] = false;
@@ -57,5 +56,6 @@ class Solution {
 
         }
 
+        return false;
     }
 }
