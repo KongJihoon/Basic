@@ -6,10 +6,9 @@ class Solution {
     boolean[] visited;
     ArrayList<String> routes = new ArrayList<>();
 
-
     public String[] solution(String[][] tickets) {
 
-        Arrays.sort(tickets, (a, b) -> {
+        Arrays.sort(tickets, (a,b) -> {
             if (a[0].equals(b[0])) {
                 return a[1].compareTo(b[1]);
             }
@@ -23,15 +22,16 @@ class Solution {
 
         dfs("ICN", 0, tickets);
 
+
         return routes.toArray(new String[0]);
     }
 
-    private boolean dfs(String cur, int count, String[][] tickets) {
+    private boolean dfs(String curr, int count, String[][] tickets) {
 
         if (count == tickets.length) {
-
             return true;
         }
+
 
         for (int i = 0; i < tickets.length; i++) {
 
@@ -39,11 +39,12 @@ class Solution {
                 continue;
             }
 
-            if (!tickets[i][0].equals(cur)) {
+            if (!tickets[i][0].equals(curr)) {
                 continue;
             }
 
             visited[i] = true;
+
             routes.add(tickets[i][1]);
 
             if (dfs(tickets[i][1], count + 1, tickets)) {
@@ -53,9 +54,9 @@ class Solution {
             routes.remove(routes.size() - 1);
             visited[i] = false;
 
-
         }
 
         return false;
+
     }
 }
