@@ -1,29 +1,29 @@
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 class Solution {
-    public ArrayList<Integer> solution(int[] arr, int divisor) {
+    public int[] solution(int[] arr, int divisor) {
 
-        ArrayList<Integer> list = new ArrayList<>();
+        ArrayList<Integer> result = new ArrayList<>();
 
+        Arrays.sort(arr);
 
-        for (int item : arr) {
+        for (int num : arr) {
 
-            if (item % divisor == 0) {
-                list.add(item);
+            if (num % divisor == 0) {
+
+                result.add(num);
             }
 
         }
-
-
-        if (list.isEmpty()) {
-            list.add(-1);
-            return list;
+        
+        if (result.isEmpty()) {
+            return new int[]{-1};
         }
 
-        Collections.sort(list);
 
-        return list;
+        return result.stream()
+                .mapToInt(Integer::intValue)
+                .toArray();
     }
-
 }
