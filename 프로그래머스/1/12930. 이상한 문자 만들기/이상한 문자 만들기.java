@@ -5,21 +5,24 @@ class Solution {
 
         int idx = 0;
 
-        for (char c : s.toCharArray()) {
-
+        for (int i = 0; i < s.length(); i++) {
+            
+            char c = s.charAt(i);
+            
             if (c == ' ') {
                 sb.append(c);
                 idx = 0;
-            } else {
-                if (idx % 2 == 0) {
-                    sb.append(Character.toUpperCase(c));
-                    idx++;
-                } else  {
-                    sb.append(Character.toLowerCase(c));
-                    idx++;
-                }
+                continue;
             }
-
+            
+            if (idx % 2 == 0) {
+                sb.append(Character.toUpperCase(c));
+            } else {
+                sb.append(Character.toLowerCase(c));
+            }
+            
+            idx++;
+            
         }
 
 
