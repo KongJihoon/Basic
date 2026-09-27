@@ -1,42 +1,24 @@
-
 import java.util.ArrayList;
 
 class Solution {
-    public ArrayList<Long> solution(int x, int n) {
-
+    public long[] solution(int x, int n) {
 
         ArrayList<Long> list = new ArrayList<>();
 
-        long num = 0;
+        long value = x;
 
-        if (x < 0) {
+        list.add(value);
 
-            while (n-- > 0) {
+        for (int i = 1; i < n; i++) {
 
-                num += x;
+            value += x;
 
-                list.add(num);
+            list.add(value);
 
-
-            }
-
-            return list;
-
-        } else  {
-
-
-            while (n-- > 0) {
-
-                num += x;
-
-                list.add(num);
-
-            }
-
-            return list;
         }
 
-
-
+        return list.stream()
+                .mapToLong(Long::longValue)
+                .toArray();
     }
 }
