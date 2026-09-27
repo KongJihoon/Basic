@@ -1,37 +1,34 @@
 import java.util.ArrayList;
 
 class Solution {
-    public ArrayList<Integer> solution(int[] arr) {
-        ArrayList<Integer> result = new ArrayList<>();
+    public int[] solution(int[] arr) {
         
         if (arr.length == 1) {
-            result.add(-1);
-            return result;
+            return new int[]{-1};
         }
-
+        
         int min = Integer.MAX_VALUE;
-
-        for (int item : arr) {
-
-            if (min > item) {
-                min = item;
+        
+        for (int num : arr) {
+            
+            if (min > num) {
+                min = num;
             }
-
+            
         }
-        
-        
-        
 
-        for (int item : arr) {
-
-            if (item == min) {
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        for (int num : arr) {
+            if (num == min) {
                 continue;
             }
-
-
-            result.add(item);
+            
+            list.add(num);
         }
-
-        return result;
+        
+        return list.stream()
+                .mapToInt(Integer::intValue)
+                .toArray();
     }
 }
