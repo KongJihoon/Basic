@@ -1,20 +1,21 @@
 class Solution {
     public boolean solution(int x) {
-
-        int target = 0;
-
-        String s = String.valueOf(x);
+        boolean answer = true;
         
-        for (String str : s.split("")) {
+        String num = String.valueOf(x);
+        
+        int sum = 0;
+        
+        for (String s : num.split("")) {
             
-            target += Integer.parseInt(str);
+            sum += Integer.parseInt(s);
+            
         }
-
         
-        if(x % target == 0) {
+        if (x % sum == 0) {
             return true;
         }
-
+        
         return false;
     }
 }
