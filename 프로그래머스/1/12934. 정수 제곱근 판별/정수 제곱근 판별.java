@@ -1,26 +1,13 @@
 class Solution {
     public long solution(long n) {
-        long answer = 0;
 
+        double sqrt = Math.sqrt(n);
 
-        for (int i = 1; i <= Math.sqrt(n); i++) {
-
-            if ((long) i * i == n) {
-                answer = i;
-            }
-
-        }
-        
-        if (answer == 0) {
+        if (sqrt % 1 != 0) {
             return -1;
         }
-
-        answer = (answer + 1) * (answer + 1);
-
-
-        return answer;
-
-
-
+        
+        
+        return (long)(Math.pow(sqrt + 1, 2));
     }
 }
