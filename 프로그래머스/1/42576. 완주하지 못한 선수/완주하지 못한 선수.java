@@ -6,27 +6,28 @@ class Solution {
         String answer = "";
 
         Map<String, Integer> map = new HashMap<>();
-        
-        for (String key : participant) {
+
+        for (int i = 0; i < participant.length; i++) {
             
-            map.put(key, map.getOrDefault(key, 0) + 1);
+            map.put(participant[i], map.getOrDefault(participant[i], 0) + 1);
             
         }
         
-        for (String item : completion) {
+        for (String complete : completion) {
+            map.put(complete, map.get(complete) - 1);
+        }
+        
+        for (String name : map.keySet()) {
 
-            int n = map.get(item) - 1;
+            Integer value = map.get(name);
             
-            if (n == 0) {
-                map.remove(item);
-            } else {
-                map.put(item, n);
+            if (value != 0) {
+                answer = name;
             }
 
         }
-
-        answer = map.keySet().iterator().next();
-
+        
+        
         return answer;
     }
 }
