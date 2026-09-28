@@ -1,77 +1,50 @@
-
-
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 
 class Solution {
-    public static int solution(String dartResult) {
-        int answer = 0;
+    public int solution(String dartResult) {
 
+        int[] point = new int[3];
 
-        HashMap<Character, Integer> map = new HashMap<>();
+        int idx = 0;
 
-        map.put('S', 1);
-        map.put('D', 2);
-        map.put('T', 3);
+        String value = "";
 
-        ArrayList<Integer> list = new ArrayList<>();
+        for (char c : dartResult.toCharArray()) {
 
-        String score = "";
+            if (Character.isDigit(c)) {
+                value += c;
+            }
 
-        for (int i = 0; i < dartResult.length(); i++) {
-
-
-            char ch = dartResult.charAt(i);
-
-            if (Character.isDigit(ch)) {
+            if (c == 'S') {
+                point[idx] = (int)Math.pow(Integer.parseInt(value), 1);
+                value = "";
+                idx++;
+            } else if (c == 'D') {
+                point[idx] = (int)Math.pow(Integer.parseInt(value), 2);
+                value = "";
+                idx++;
+            } else if (c == 'T') {
+                point[idx] = (int)Math.pow(Integer.parseInt(value), 3);
+                value = "";
+                idx++;
+            } else if (c == '*') {
                 
-                if (score.equals("1")) {
-                    score = "10";
-                    continue;
+                point[idx - 1] *= 2;
+                
+                if (idx >= 2) {
+                    point[idx - 2] *= 2;
                 }
                 
-                score = String.valueOf(dartResult.charAt(i));
-            } else if (ch == 'S' || ch == 'D' || ch == 'T') {
-
-                int scores = Integer.parseInt(score);
-
-                list.add((int) Math.pow(scores, map.get(ch)));
-
-                score = "";
-
-            } else if (ch == '*') {
-
-                if (list.size() == 1) {
-                    list.set(0, list.get(0) * 2);
-                } else {
-                    list.set(list.size() - 1, list.get(list.size() - 1) * 2);
-                    list.set(list.size() - 2, list.get(list.size() - 2) * 2);
-                }
-
-            } else if (ch == '#') {
-
-                list.set(list.size() - 1, list.get(list.size() - 1) * -1);
+            } else if (c == '#') {
+                point[idx - 1] *= -1;
             }
 
 
         }
 
 
-        for (int i = 0; i < list.size(); i++) {
-
-            answer += list.get(i);
-
-        }
-
-
-        return answer;
-    }
-
-
-    public static void main(String[] args) {
-
-        System.out.println(solution("1D#2S*3S"));
-
-
+        return Arrays.stream(point)
+                .sum();
     }
 }
