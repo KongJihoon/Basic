@@ -1,62 +1,46 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
 
-        Arrays.sort(lost);
-        Arrays.sort(reserve);
-        
-        int answer = n - lost.length;
+        int[] students = new int[n];
 
-        boolean[] isFlag = new boolean[31];
+        Arrays.fill(students, 1);
 
-        for (int i = 0; i < lost.length; i++) {
+        for (int i : lost) {
 
-            for (int j = 0; j < reserve.length; j++) {
-
-                if(lost[i] == reserve[j]) {
-                    isFlag[reserve[j]] = true;
-                    answer++;
-                    break;
-                }
-
-            }
-
+            students[i - 1]--;
         }
 
+        for (int i : reserve) {
+            students[i - 1]++;
+        }
 
-        for (int i = 0; i < lost.length; i++) {
+        int count = 0;
 
+        for (int i = 0; i < students.length; i++) {
 
-            if (isFlag[lost[i]]) {
-                continue;
-            }
-
-            for (int j = 0; j < reserve.length; j++) {
-
-
-                if (reserve[j] == lost[i] + 1 || reserve[j] == lost[i] - 1) {
-
-                    if (isFlag[reserve[j]]) {
-                        continue;
-                    }
-
-                    answer++;
-
-                    isFlag[reserve[j]] = true;
-
-                    break;
-
+            if (students[i] == 0) {
+                
+                if (i > 0 && students[i - 1] == 2) {
+                    students[i]++;
+                    students[i - 1]--;
+                } else if (i < n - 1 && students[i + 1] == 2) {
+                    students[i]++;
+                    students[i + 1]++;
                 }
 
+            }
+            
+            if (students[i] > 0) {
+                count++;
             }
 
 
         }
 
 
-
-
-        return answer;
+        return count;
     }
 }
