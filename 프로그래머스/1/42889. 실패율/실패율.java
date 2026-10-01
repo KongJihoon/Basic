@@ -3,68 +3,77 @@ import java.util.List;
 
 class Solution {
     public int[] solution(int N, int[] stages) {
-        int[] answer = {};
 
-        int[] count = new int[N + 2];
+        // 처음 사용자 수 stages.length()
+        // 1번 스테이지 실패율 저장 후 -> 사용자 수 stages.length() - 1번 스테이지에 머물러 있는 인원 수
+        // 각 실패율 및 인덱스 저장 클래스 생성
+        // 저장 후 실패율 높은 순으로 내림차순, 같을 경우 인덱스가 작은 순으로 오름차순
 
         List<Stage> list = new ArrayList<>();
 
-        for (int stage : stages) {
-            count[stage]++;
-        }
+        int len = stages.length;
 
-        int users = stages.length;
+        int[] count = new int[N + 2];
+
+        for (int i = 0; i < stages.length; i++) {
+
+            count[stages[i]]++;
+        }
 
         for (int i = 1; i <= N; i++) {
 
             double failureRate;
 
-            if (users == 0) {
+            if (len == 0) {
                 failureRate = 0;
-            } else {
-                failureRate = (double) count[i] / users;
+            } else  {
+                failureRate = (double) count[i] / len;
             }
 
             list.add(new Stage(i, failureRate));
 
-            users -= count[i];
+            len -= count[i];
 
         }
 
         list.sort((f1, f2) -> {
-
-            if (Double.compare(f1.failureRate, f2.failureRate) == 0) {
-                return Integer.compare(f1.number, f2.number);
+            if (f1.failureRate == f2.failureRate) {
+                return Integer.compare(f1.idx, f2.idx);
             }
 
             return Double.compare(f2.failureRate, f1.failureRate);
         });
 
-        answer = new int[N];
 
-        for (int i = 0; i < list.size(); i++) {
+        return list.stream()
+                .mapToInt(Stage::getIdx)
+                .toArray();
 
-            answer[i] = list.get(i).number;
-
-        }
-
-        return answer;
     }
 
 
 
     class Stage {
 
-        int number = 0;
-        double failureRate;
+        private int idx;
+        private double failureRate;
 
-        public Stage(int number, double failureRate) {
 
-            this.number = number;
+        public double getFailureRate() {
+            return failureRate;
+        }
+
+        public int getIdx() {
+            return idx;
+        }
+
+
+        public Stage(int idx, double failureRate) {
+            this.idx = idx;
             this.failureRate = failureRate;
         }
 
 
-    }
 
+    }
 }
