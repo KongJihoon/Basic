@@ -1,13 +1,17 @@
 class Solution {
     public int solution(int[] a, int[] b) {
-        int answer = 0;
 
+        int sum = 0;
         for (int i = 0; i < a.length; i++) {
             
-            answer += a[i] * b[i];
+            int x = a[i];
+            int y = b[i];
+            
+            sum += x * y;
             
         }
         
-        return answer;
+        return sum
+                ;
     }
 }
