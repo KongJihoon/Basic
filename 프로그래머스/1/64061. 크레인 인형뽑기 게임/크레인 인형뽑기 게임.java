@@ -2,10 +2,9 @@ import java.util.Stack;
 
 class Solution {
     public int solution(int[][] board, int[] moves) {
-        int answer = 0;
+
 
         int count = 0;
-
 
         Stack<Integer> stack = new Stack<>();
 
@@ -22,7 +21,7 @@ class Solution {
                 }
                 
                 board[row][col] = 0;
-
+                
                 if (!stack.isEmpty() && stack.peek() == value) {
                     stack.pop();
                     count += 2;
@@ -30,12 +29,13 @@ class Solution {
                     stack.push(value);
                 }
 
+
                 break;
 
             }
 
-
         }
+
 
         return count;
     }
