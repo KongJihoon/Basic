@@ -3,28 +3,59 @@ class Solution {
 
         new_id = new_id.toLowerCase();
 
-        new_id = new_id.replaceAll("[^a-z0-9-_.]", "");
 
-        new_id = new_id.replaceAll("\\.{2,}",".");
+        StringBuilder sb = new StringBuilder();
 
-        new_id = new_id.replaceAll("^\\.|\\.$", "");
+        for (char c : new_id.toCharArray()) {
+
+            if (Character.isLowerCase(c) || Character.isDigit(c)
+            || c == '-' || c == '_' || c == '.') {
+                sb.append(c);
+            }
+        }
+
+        new_id = sb.toString();
+
+        sb = new StringBuilder();
+
+        for (char c : new_id.toCharArray()) {
+
+            if (c == '.' && sb.length() > 0 && sb.charAt(sb.length() - 1) == '.') {
+                continue;
+            }
+
+            sb.append(c);
+        }
+
+        new_id = sb.toString();
+
+        if (!new_id.isEmpty() && new_id.charAt(0) == '.') {
+            new_id = new_id.substring(1);
+        }
+
+        if (!new_id.isEmpty() && new_id.charAt(new_id.length() - 1) == '.') {
+            new_id = new_id.substring(0, new_id.length() - 1);
+        }
 
         if (new_id.isEmpty()) {
             new_id = "a";
         }
 
         if (new_id.length() >= 16) {
-            new_id = new_id.substring(0,15);
+            new_id = new_id.substring(0, 15);
         }
 
-        new_id = new_id.replaceAll("\\.$","");
-
+        if (new_id.charAt(new_id.length() - 1) == '.') {
+            new_id = new_id.substring(0, new_id.length() - 1);
+        }
 
         while (new_id.length() < 3) {
 
-            new_id += new_id.charAt(new_id.length() - 1);
-        }
+            char last = new_id.charAt(new_id.length() - 1);
 
+            new_id += last;
+
+        }
 
 
         return new_id;
