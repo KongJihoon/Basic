@@ -1,35 +1,33 @@
 class Solution {
     public int solution(int left, int right) {
-        int answer = 0;
 
-        for (int i = left; i <= right; i++) {
+        int sum = 0;
 
-            int divisor = getDivisorCnt(i);
+        int start = left;
+        int end = right;
 
-            if (divisor % 2 == 0) {
-                answer += i;
-            } else  {
-                answer -= i;
+
+
+        for (int i = start; i <= end; i++) {
+            int cnt = 0;
+
+            for (int j = 1; j <= i / 2; j++) {
+
+                if (i % j == 0) {
+                    cnt++;
+                }
+
+            }
+            cnt++;
+
+            if (cnt % 2 == 0) {
+                sum += i;
+            } else {
+                sum -= i;
             }
 
         }
 
-        return answer;
-    }
-
-
-    public int getDivisorCnt(int num) {
-
-        int divisor = 1;
-
-        for (int i = 1; i <= num / 2; i++) {
-            if (num % i == 0) {
-                divisor++;
-            }
-
-        }
-
-
-        return divisor;
+        return sum;
     }
 }
