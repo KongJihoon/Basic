@@ -4,45 +4,48 @@ class Solution {
     public int[] solution(String[] id_list, String[] report, int k) {
         int[] answer = new int[id_list.length];
 
+        Map<String, Integer> userIndex = new HashMap<>();
 
-        Set<String> reportSet = new HashSet<>(Arrays.asList(report));
+        for (int i = 0; i < id_list.length; i++) {
+            userIndex.put(id_list[i], i);
+        }
 
+        Map<String, Integer> userReported = new HashMap<>();
 
-        Map<String, Integer> reportMap = new HashMap<>();
+        Set<String> reports = new HashSet<>(Arrays.asList(report));
 
-        for (String s : reportSet) {
+        for (String r : reports) {
 
-            String[] str = s.split(" ");
+            String[] users = r.split(" ");
+            String reported = users[1];
 
-            String reported = str[1];
-
-            reportMap.put(reported, reportMap.getOrDefault(reported, 0) + 1);
+            userReported.put(reported, userReported.getOrDefault(reported, 0) + 1);
 
         }
 
         Set<String> banned = new HashSet<>();
 
-        for (String s : reportMap.keySet()) {
+        for (String reported : userReported.keySet()) {
 
-            if (reportMap.get(s) >= k) {
-                banned.add(s);
+            if (userReported.get(reported) >= k) {
+                banned.add(reported);
             }
 
         }
 
-        for (String s : reportSet) {
-            String[] str = s.split(" ");
-            String reporter = str[0];
-            String reported = str[1];
+        for (String r : reports) {
+
+            String[] users = r.split(" ");
+            String reporter = users[0];
+            String reported = users[1];
 
             if (banned.contains(reported)) {
-                int index = Arrays.asList(id_list).indexOf(reporter);
+                int index = userIndex.get(reporter);
                 answer[index]++;
 
             }
 
         }
-
 
 
         return answer;
