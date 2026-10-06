@@ -4,27 +4,38 @@ class Solution {
     public int solution(int[] numbers) {
         int answer = 0;
 
+
+        boolean[] flag = new boolean[10];
+
         Arrays.sort(numbers);
 
+        
         for (int i = 0; i < 10; i++) {
-            
-            boolean isFlag = false;
 
+            if (flag[i]) {
+                continue;
+            }
+            
             for (int j = 0; j < numbers.length; j++) {
                 
                 if (numbers[j] == i) {
-                    isFlag = true;
+                    flag[i] = true;
                     break;
                 }
                 
             }
-            
-            if (!isFlag) {
+
+        }
+
+        for (int i = 0; i < flag.length; i++) {
+
+            if (!flag[i]) {
                 answer += i;
             }
-            
+
         }
-        
+
+
         return answer;
     }
 }
