@@ -1,41 +1,50 @@
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution {
     public String solution(String[] survey, int[] choices) {
 
-        StringBuilder sb = new StringBuilder();
-
-        char[][] mbtis = {{'R','T'}, {'C', 'F'}, {'J', 'M'}, {'A', 'N'}};
-
-        int[] alphabet = new int[26];
-
+        Map<Character, Integer> map = new HashMap<>();
 
         for (int i = 0; i < choices.length; i++) {
 
-            if (choices[i] > 4) {
+            char disagree = survey[i].charAt(0);
+            char agree = survey[i].charAt(1);
 
-                alphabet[survey[i].charAt(1) - 'A'] += choices[i] - 4;
+            if (choices[i] < 4) {
 
-            } else if (choices[i] < 4) {
+                map.put(disagree, map.getOrDefault(disagree, 0) + (4 - choices[i]));
 
-                alphabet[survey[i].charAt(0) - 'A'] += 4 - choices[i];
-
+            } else if (choices[i] > 4) {
+                
+                map.put(agree, map.getOrDefault(agree, 0) + (choices[i] - 4));
+                
             }
 
-
         }
+        
+        
+        StringBuilder sb = new StringBuilder();
 
-        for (char[] items : mbtis) {
-
-            if (alphabet[items[0] - 'A'] >= alphabet[items[1] - 'A']) {
-                sb.append(items[0]);
-            } else {
-                sb.append(items[1]);
-            }
-
-
-        }
-
-
+        sb.append(compare(map, 'R', 'T'));
+        sb.append(compare(map, 'C', 'F'));
+        sb.append(compare(map, 'J', 'M'));
+        sb.append(compare(map, 'A', 'N'));
 
         return sb.toString();
     }
+    
+    
+    private char compare(Map<Character, Integer> map, char a, char b) {
+        
+        int aScore = map.getOrDefault(a, 0);
+        int bScore = map.getOrDefault(b, 0);
+        
+        if (aScore >= bScore) {
+            return a;
+        }
+        
+        return b;
+    }
+    
 }
