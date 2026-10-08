@@ -1,45 +1,19 @@
 class Solution {
-    public static int solution(int a, int b, int n) {
-
-        int result = 0;
-
-        if (n < a) {
-            return 0;
-        }
-
-
-        while (true) {
-
-
-            if (n < a) {
-                break;
-            }
-
-            int cok = n / a;
+    public int solution(int a, int b, int n) {
+        int answer = 0;
+        
+        int coke = n;
+        
+        while (coke >= a) {
             
-            int newCola = cok * b;
-
-            int bottle = cok * a;
-
-
-
-            n = n - bottle + newCola;
-
-            result += newCola;
-
-
+            int newCoke = (coke / a) * b;
+            
+            coke = coke % a == 0 ? newCoke : newCoke + (coke % a);
+            
+            answer += newCoke;
+            
         }
-
-
-        return result;
-    }
-
-    public static void main(String[] args) {
-        int a = 3;
-        int b = 1;
-
-        int n = 20;
-
-        System.out.println(solution(a, b, n));
+        
+        return answer;
     }
 }
