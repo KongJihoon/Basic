@@ -3,22 +3,24 @@ class Solution {
 
         StringBuilder sb = new StringBuilder();
 
+
         for (int i = 1; i < food.length; i++) {
 
-            if (food[i] < 2) {
-                continue;
-            }
+            int cnt = food[i] / 2;
 
-            for (int j = 0; j < food[i] / 2; j++) {
+            for (int j = 0; j < cnt; j++) {
 
                 sb.append(i);
 
             }
+
         }
 
-        StringBuilder reversed = new StringBuilder(sb).reverse();
+        StringBuilder second = new StringBuilder(sb).reverse();
 
-        sb.append("0").append(reversed);
+        sb.append(0).append(second);
+
+
 
         return sb.toString();
     }
