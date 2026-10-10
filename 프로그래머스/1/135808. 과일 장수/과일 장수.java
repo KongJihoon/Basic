@@ -5,17 +5,13 @@ class Solution {
     public int solution(int k, int m, int[] score) {
         int answer = 0;
 
+        Arrays.sort(score);
 
-        int[] arrayScore = Arrays.stream(score)
-                .boxed()
-                .sorted(Comparator.reverseOrder())
-                .mapToInt(Integer::intValue)
-                .toArray();
-
-        for (int i = m - 1; i < arrayScore.length; i += m) {
-            answer += arrayScore[i] * m;
+        for (int i = score.length - m; i >= 0; i -= m) {
+            
+            answer += score[i] * m;
         }
-
+        
         return answer;
     }
 }
