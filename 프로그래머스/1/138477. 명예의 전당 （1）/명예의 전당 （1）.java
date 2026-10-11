@@ -15,8 +15,10 @@ class Solution {
                 pq.poll();
             }
             
+            
             answer[i] = pq.peek();
         }
+        
         
         
         
