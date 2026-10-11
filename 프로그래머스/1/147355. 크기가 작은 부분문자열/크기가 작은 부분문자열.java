@@ -1,11 +1,12 @@
 class Solution {
-    public static int solution(String t, String p) {
+    public int solution(String t, String p) {
         int answer = 0;
 
+        int len = p.length();
 
-        for (int i = 0; i <= t.length() - p.length(); i++) {
+        for (int i = 0; i <= t.length() - len; i++) {
 
-            String s = t.substring(i, i + p.length());
+            String s = t.substring(i, i + len);
 
             if (s.compareTo(p) <= 0) {
                 answer++;
@@ -14,18 +15,5 @@ class Solution {
         }
 
         return answer;
-    }
-
-
-
-    public static void main(String[] args) {
-
-        String t = "10203";
-        String p = "15";
-
-        int solution = solution(t, p);
-
-        System.out.println(solution);
-
     }
 }
