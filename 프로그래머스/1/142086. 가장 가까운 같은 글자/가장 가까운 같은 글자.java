@@ -1,29 +1,29 @@
-import java.util.Arrays;
-
 class Solution {
     public int[] solution(String s) {
         int[] answer = new int[s.length()];
 
-        Arrays.fill(answer, -1);
 
-        for (int i = answer.length - 1; i >= 0; i--) {
+        for (int i = 0; i < s.length(); i++) {
 
-            char itemA = s.charAt(i);
+            boolean flag = false;
 
-            for (int j = 0; j < i; j++) {
-                
-                char itemB = s.charAt(j);
-                
-                if (itemA == itemB) {
+            char c = s.charAt(i);
+
+            for (int j = i - 1; j >= 0; j--) {
+
+                if (c == s.charAt(j)) {
+                    flag = true;
                     answer[i] = i - j;
+                    break;
                 }
-                
-            }
-            
-            
-            
-        }
 
+            }
+
+            if (!flag) {
+                answer[i] = -1;
+            }
+
+        }
 
         return answer;
     }
