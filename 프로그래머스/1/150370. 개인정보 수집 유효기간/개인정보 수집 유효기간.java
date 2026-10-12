@@ -8,44 +8,40 @@ class Solution {
 
         List<Integer> list = new ArrayList<>();
 
-        int curr = covertDay(today);
+        int currDay = convert(today);
 
         Map<String, Integer> map = new HashMap<>();
 
-        for (String term : terms) {
+        for (String info : terms) {
+            String[] infos = info.split(" ");
 
-            String[] parts = term.split(" ");
-
-            map.put(parts[0], Integer.parseInt(parts[1]));
-
+            map.put(infos[0], Integer.parseInt(infos[1]));
         }
 
         for (int i = 0; i < privacies.length; i++) {
 
-            String[] parts = privacies[i].split(" ");
+            String[] privacy = privacies[i].split(" ");
 
-            String selectedDate = parts[0];
+            int month = map.get(privacy[1]);
 
-            int selectedDay = covertDay(selectedDate);
+            int curr = convert(privacy[0]);
 
-            int month = map.get(parts[1]);
-
-            int expireDay = selectedDay + (month * 28);
-
-            if (curr >= expireDay) {
+            int expiredDay = curr + (month * 28);
+            
+            if (currDay >= expiredDay) {
                 list.add(i + 1);
             }
 
         }
 
-
+        
         return list.stream()
                 .mapToInt(Integer::intValue)
                 .toArray();
     }
 
 
-    private int covertDay(String date) {
+    public int convert(String date) {
 
         String[] parts = date.split("\\.");
 
