@@ -1,27 +1,25 @@
 class Solution {
     public String solution(String[] cards1, String[] cards2, String[] goal) {
-
-
-        String answer = "";
-
+    
+    
         int idx1 = 0;
-
         int idx2 = 0;
-
-        for (String word : goal) {
+        
+        for (String card : goal) {
             
-            if (idx1 < cards1.length && word.equals(cards1[idx1])) {
+            
+            if (idx1 < cards1.length && cards1[idx1].equals(card)) {
                 idx1++;
-            } else if (idx2 < cards2.length && word.equals(cards2[idx2])) {
+            } else if (idx2 < cards2.length && cards2[idx2].equals(card)) {
                 idx2++;
             } else {
                 return "No";
             }
 
+
         }
         
-        answer = "Yes";
-
-        return answer;
+        return "Yes";
+    
     }
 }
