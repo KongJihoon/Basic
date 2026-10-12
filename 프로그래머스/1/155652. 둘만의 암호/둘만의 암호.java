@@ -1,58 +1,42 @@
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 class Solution {
-    public static String solution(String s, String skip, int index) {
-
-        Set<Character> set = new HashSet<>();
-
+    public String solution(String s, String skip, int index) {
         StringBuilder sb = new StringBuilder();
-        for (char c : skip.toCharArray()) {
+        boolean[] flag = new boolean[26];
 
-            set.add(c);
+        for (int i = 0; i < skip.length(); i++) {
+
+            char c = skip.charAt(i);
+
+            flag[c - 'a'] = true;
+
         }
 
-        for (char ch : s.toCharArray()) {
 
-            int count = 0;
+        for (int i = 0; i < s.length(); i++) {
 
-            char current = ch;
+            char c = s.charAt(i);
 
-            while (count < index) {
+            int idx = c - 'a';
+            int cnt = 0;
 
-                current++;
+            while (cnt < index) {
 
-                if (current > 'z') {
-                    current = 'a';
+
+                idx = (idx + 1) % 26;
+
+                if (flag[idx]) {
+                    continue;
                 }
 
-
-                if (!set.contains(current)) {
-                    count++;
-                }
+                cnt++;
 
             }
 
-            sb.append(current);
-
-
-
+            sb.append((char) (idx + 'a'));
 
         }
 
+
         return sb.toString();
     }
-
-    public static void main(String[] args) {
-
-        String s = "aukks";
-        String skip = "wbqd";
-
-        int index = 5;
-
-        System.out.println(solution(s, skip, index));
-
-    }
-
 }
