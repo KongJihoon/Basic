@@ -1,30 +1,31 @@
 class Solution {
     public String solution(String s, String skip, int index) {
         StringBuilder sb = new StringBuilder();
+
         boolean[] flag = new boolean[26];
 
         for (int i = 0; i < skip.length(); i++) {
 
-            char c = skip.charAt(i);
+            char target = skip.charAt(i);
 
-            flag[c - 'a'] = true;
+            flag[target - 'a'] = true;
 
         }
 
 
         for (int i = 0; i < s.length(); i++) {
 
-            char c = s.charAt(i);
+            char target = s.charAt(i);
 
-            int idx = c - 'a';
+            int targetIdx = target - 'a';
+
             int cnt = 0;
 
             while (cnt < index) {
 
+                targetIdx = (targetIdx + 1) % 26;
 
-                idx = (idx + 1) % 26;
-
-                if (flag[idx]) {
+                if (flag[targetIdx]) {
                     continue;
                 }
 
@@ -32,7 +33,8 @@ class Solution {
 
             }
 
-            sb.append((char) (idx + 'a'));
+            sb.append((char) ('a' + targetIdx));
+
 
         }
 
