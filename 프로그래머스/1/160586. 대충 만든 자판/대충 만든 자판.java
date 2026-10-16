@@ -1,46 +1,49 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 class Solution {
     public int[] solution(String[] keymap, String[] targets) {
 
-        int[] minCount = new int[26];
+        ArrayList<Integer> list = new ArrayList<>();
 
-        Arrays.fill(minCount, Integer.MAX_VALUE);
+        Map<Character, Integer> map = new HashMap<>();
 
-        for (String key : keymap) {
-            for (int i = 0; i < key.length(); i++) {
-
-                char c = key.charAt(i);
+        for (int i = 0; i < keymap.length; i++) {
 
 
-                minCount[c - 'A'] = Math.min(minCount[c - 'A'], i + 1);
+            for (int j = 0; j < keymap[i].length(); j++) {
 
+                char c = keymap[i].charAt(j);
+
+                if (map.containsKey(c)) {
+
+                    map.put(c, Math.min(map.get(c), j + 1));
+
+                } else {
+                    map.put(c, j + 1);
+                }
             }
 
         }
 
-        ArrayList<Integer> list = new ArrayList<>();
-
-
         for (String target : targets) {
-
             int sum = 0;
+
 
             for (int i = 0; i < target.length(); i++) {
 
                 char c = target.charAt(i);
 
-                if (minCount[c - 'A'] == Integer.MAX_VALUE) {
+                if (map.containsKey(c)) {
+                    sum += map.get(c);
+                } else {
                     sum = -1;
                     break;
-                } else {
-                    
-                    sum += minCount[c - 'A'];
                 }
 
             }
-            
+
             list.add(sum);
 
         }
@@ -49,5 +52,6 @@ class Solution {
         return list.stream()
                 .mapToInt(Integer::intValue)
                 .toArray();
+
     }
 }
