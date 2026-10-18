@@ -1,20 +1,21 @@
 class Solution {
     public int solution(int n, int m, int[] section) {
 
-        int answer = 0;
-
-
+        int cnt = 0;
         int painted = 0;
 
-        for (int pos : section) {
+        for (int s : section) {
 
-            if (pos > painted) {
-                answer++;
-                painted = pos + m - 1;
+            if (s <= painted) {
+                continue;
             }
+
+            cnt++;
+            painted = s + m - 1;
 
         }
 
-        return answer;
+
+        return cnt;
     }
 }
