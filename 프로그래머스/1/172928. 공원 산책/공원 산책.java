@@ -1,87 +1,78 @@
 class Solution {
     public int[] solution(String[] park, String[] routes) {
-        int[] answer = {};
 
+        int width = park[0].length() - 1;
+        int height = park.length - 1;
 
-        int height = park.length;
-        int width = park[0].length();
+        int row = 0;
+        int col = 0;
 
-        boolean isFound = false;
-
-        int x = 0;
-        int y = 0;
-
-        // 시작지점
         for (int i = 0; i < park.length; i++) {
-            for (int j = 0; j < park[i].length(); j++) {
 
-                if (park[i].charAt(j) == 'S') {
+            String str = park[i];
+            boolean find = false;
 
-                    x = i;
-                    y = j;
+            for (int j = 0; j < str.length(); j++) {
 
-                    isFound = true;
+                char c = str.charAt(j);
+
+                if (c == 'S') {
+                    row = i;
+                    col = j;
+                    find = true;
+                    break;
                 }
-
             }
 
-            if (isFound) {
+            if (find) {
                 break;
             }
         }
 
         for (String route : routes) {
 
-            String[] parts = route.split(" ");
+            String[] part = route.split(" ");
+            String direction = part[0];
+            int distance = Integer.parseInt(part[1]);
 
-            String direction = parts[0];
-
-            int distance = Integer.parseInt(parts[1]);
-
-            int dx = 0;
-            int dy = 0;
-
-            if (direction.equals("N")) {
-                dx = -1;
-            } else if (direction.equals("S")) {
-                dx = 1;
-            } else if (direction.equals("E")) {
-                dy = 1;
-            } else if (direction.equals("W")) {
-                dy = -1;
-            }
-
-            // 실제 이동 전에 가능한지 검사
-            int nx = x;
-            int ny = y;
-
+            int dx = row;
+            int dy = col;
+            
             boolean canMove = true;
+
             for (int i = 0; i < distance; i++) {
 
-                nx += dx;
-                ny += dy;
-
-                if (nx < 0 || nx >= height || ny < 0 || ny >= width) {
+                if (direction.equals("N")) {
+                    dx--;
+                } else if (direction.equals("S")) {
+                    dx++;
+                } else if (direction.equals("W")) {
+                    dy--;
+                } else {
+                    dy++;
+                }
+                
+                if (dx < 0 || dx > height || dy < 0 || dy > width) {
                     canMove = false;
                     break;
                 }
                 
-                if (park[nx].charAt(ny) == 'X') {
+                if (park[dx].charAt(dy) == 'X') {
                     canMove = false;
                     break;
                 }
                 
             }
+            
             if (canMove) {
-                x = nx;
-                y = ny;
+                row = dx;
+                col = dy;
             }
 
 
         }
 
 
-
-        return new int[] {x, y};
+        return new int[] {row, col};
     }
 }
