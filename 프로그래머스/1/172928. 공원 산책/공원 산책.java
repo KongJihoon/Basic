@@ -9,36 +9,34 @@ class Solution {
 
         for (int i = 0; i < park.length; i++) {
 
+            boolean isStart = false;
             String str = park[i];
-            boolean find = false;
 
             for (int j = 0; j < str.length(); j++) {
 
-                char c = str.charAt(j);
-
-                if (c == 'S') {
+                if (str.charAt(j) == 'S') {
                     row = i;
                     col = j;
-                    find = true;
+                    isStart = true;
                     break;
                 }
+
             }
 
-            if (find) {
+            if (isStart) {
                 break;
             }
+
         }
 
-        for (String route : routes) {
-
-            String[] part = route.split(" ");
+        for(String str : routes) {
+            String[] part = str.split(" ");
             String direction = part[0];
             int distance = Integer.parseInt(part[1]);
 
             int dx = row;
             int dy = col;
-            
-            boolean canMove = true;
+            boolean isMove = true;
 
             for (int i = 0; i < distance; i++) {
 
@@ -48,31 +46,32 @@ class Solution {
                     dx++;
                 } else if (direction.equals("W")) {
                     dy--;
-                } else {
+                } else if (direction.equals("E")) {
                     dy++;
                 }
-                
+
                 if (dx < 0 || dx > height || dy < 0 || dy > width) {
-                    canMove = false;
+                    isMove = false;
                     break;
                 }
-                
+
                 if (park[dx].charAt(dy) == 'X') {
-                    canMove = false;
+                    isMove = false;
                     break;
                 }
-                
+
             }
-            
-            if (canMove) {
+
+            if (isMove) {
                 row = dx;
                 col = dy;
             }
 
-
         }
 
 
-        return new int[] {row, col};
+
+
+        return new int[]{row, col};
     }
 }
